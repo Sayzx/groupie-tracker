@@ -30,36 +30,41 @@ func registerForm(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
 	password := r.FormValue("password")
 	pseudo := r.FormValue("pseudo")
-	fmt.Printf("Email: %s\nPassword: %s\nPseudo: %s\n", email, password, pseudo)
-	// si dans le dossier web/data le dossier account.json existe pas on le crée
-	// sinon on ajoute les données dans le fichier account.json
-	if _, err := os.Stat("./web/data/account.json"); os.IsNotExist(err) {
-		// le fichier n'existe pas
-		// on crée le fichier
-		file, err := os.Create("./web/data/account.json")
-		if err != nil {
-			fmt.Printf("Erreur lors de la création du fichier: %v\n", err)
-		}
-		defer file.Close()
-		// on écrit les données dans le fichier
-		_, err = file.WriteString(fmt.Sprintf("{\"email\": \"%s\", \"password\": \"%s\", \"pseudo\": \"%s\"}", email, password, pseudo))
-		if err != nil {
-			fmt.Printf("Erreur lors de l'écriture dans le fichier: %v\n", err)
-		}
-	} else {
-		// le fichier existe
-		// on ouvre le fichier
-		file, err := os.OpenFile("./web/data/account.json", os.O_APPEND|os.O_WRONLY, 0644)
-		if err != nil {
-			fmt.Printf("Erreur lors de l'ouverture du fichier: %v\n", err)
-		}
-		defer file.Close()
-		// on écrit les données dans le fichier
-		_, err = file.WriteString(fmt.Sprintf(",{\"email\": \"%s\", \"password\": \"%s\", \"pseudo\": \"%s\"}", email, password, pseudo))
+	formattedData := fmt.Sprintf("\n  {\"email\": \"%s\",\n  \"password\": \"%s\",\n  \"pseudo\": \"%s\"\n}", email, password, pseudo)
+	fmt.Println(formattedData)
+
+	filePath := "./web/data/account.json"
+
+	// Lire le fichier actuel
+	currentData, err := os.ReadFile(filePath)
+	if err != nil {
+		fmt.Printf("Erreur lors de la lecture du fichier: %v\n", err)
+	}
+
+	// Vérifier si le fichier est vide
+	isEmpty := len(currentData) == 0
+
+	// Ouvrir ou créer le fichier
+	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Printf("Erreur lors de l'ouverture du fichier: %v\n", err)
+	}
+	defer file.Close()
+
+	// Ajouter la virgule si le fichier n'est pas vide
+	if !isEmpty {
+		_, err = file.WriteString(", ")
 		if err != nil {
 			fmt.Printf("Erreur lors de l'écriture dans le fichier: %v\n", err)
 		}
 	}
-	// on redirige l'utilisateur vers la page d'accueil
+
+	// Ajouter les données formatées dans le fichier
+	_, err = file.WriteString(fmt.Sprintf("[%s]", formattedData))
+	if err != nil {
+		fmt.Printf("Erreur lors de l'écriture dans le fichier: %v\n", err)
+	}
+
+	// Rediriger l'utilisateur vers la page d'accueil
 	http.ServeFile(w, r, "./web/templates/register.html")
 }
