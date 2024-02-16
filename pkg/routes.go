@@ -9,14 +9,14 @@ import (
 func Run() {
 	fmt.Println("Initialisation du serveur...")
 	// Serveur de fichiers statiques pour les assets
-	fs := http.FileServer(http.Dir("./web/assets"))
+	fs := http.FileServer(http.Dir("../web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	fmt.Println("Route pour la page d'accueil")
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/templates/index.html")
+		http.ServeFile(w, r, "../web/templates/index.html")
 	})
 	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/templates/register.html")
+		http.ServeFile(w, r, "../web/templates/register.html")
 	})
 	http.HandleFunc("/registerform", registerForm)
 	fmt.Println("Server started at http://localhost:9999")
