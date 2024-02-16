@@ -2,6 +2,7 @@ package internal
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -17,6 +18,7 @@ type Artist struct {
 	Locations    string   `json:"locations"`
 	ConcertDates string   `json:"concertDates"`
 	Relations    string   `json:"relations"`
+	Dates        string   `json:"dates"`
 }
 
 // GetArtists function to fetch artists from the API
@@ -27,6 +29,7 @@ func GetArtists() ([]Artist, error) {
 		return nil, err
 	}
 	defer response.Body.Close()
+	fmt.Println(response.Body)
 
 	// Decode the JSON response
 	var artists []Artist
@@ -36,4 +39,21 @@ func GetArtists() ([]Artist, error) {
 	}
 
 	return artists, nil
+}
+
+func GetArtistByID(id string) (Artist, error) {
+	apiURL := "https://groupietrackers.herokuapp.com/api/artists/" + id
+	response, err := http.Get(apiURL)
+	if err != nil {
+		return Artist{}, err
+	}
+	defer response.Body.Close()
+
+	// Decode the JSON response
+	var artist Artist
+	decoder := json.NewDecoder(response.Body)
+	if err := decoder.Decode(&artist); err != nil {
+		return Artist{}, err
+	}
+	return artist, nil
 }

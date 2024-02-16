@@ -13,14 +13,16 @@
     <!-- Affichage des artistes sous forme de cartes -->
     <div class="card-container">
         {{ range .Artists }}
-            <div class="artist-card">
-                <img src="{{ .Image }}" alt="{{ .Name }}">
-                <div class="info">
-                    <h2>{{ .Name }}</h2>
-                    <p>Date de première sortie : {{ .FirstRelease }}</p>
-                    <p>Nombre de membres : {{ len .Members }}</p>
+            <a href="/artist_info?id={{ .ID }}" class="artist-link">
+                <div class="artist-card">
+                    <img src="{{ .Image }}" alt="{{ .Name }}">
+                    <div class="info">
+                        <h2>{{ .Name }}</h2>
+                        <p>Date de première sortie : {{ .FirstRelease }}</p>
+                        <p>Nombre de membres : {{ len .Members }}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         {{ end }}
     </div>
 </body>

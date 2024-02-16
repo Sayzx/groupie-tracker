@@ -1,0 +1,31 @@
+<!-- templates/artist_info.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/artist_info.css">
+    <!-- Ajout de la bibliothèque Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <title>Artist Info</title>
+</head>
+
+<body>
+    <div class="info-container">
+        <div class="artist-info">
+            <img src="{{ .Image }}" alt="{{ .Name }}">
+            <div class="info">
+                <h1>{{ .Name }}</h1>
+                <p>Date de création : {{ .CreationDate }}</p>
+                <p>Nombre de membres : {{ len .Members }}</p>
+                <p>ConcertDates : {{ .ConcertDates }}</p>
+            </div>
+        </div>
+        <!-- Intégration de la carte Leaflet -->
+        <div id="map" class="artist-map"></div>
+    </div>
+</body>
+
+</html>
