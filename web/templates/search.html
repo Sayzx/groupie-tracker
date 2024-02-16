@@ -1,0 +1,62 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/search.css">
+    <title>Groupie Tracker</title>
+</head>
+<body>
+
+<nav>
+    <a href="#">
+        
+    </a>
+    <div style="float: right;">
+        <a href="#">Accueil</a>
+        <a href="#">Recherche</a>
+        <a href="#">Gallery</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Groupie Tracker</h1>
+
+    <!-- Barre de recherche avec filtres -->
+    <form action="https://groupietrackers.herokuapp.com/api/artists" method="get">
+        <div class="search-bar">
+            <label for="searchInput">Recherche</label>
+            <input type="text" name="name" id="searchInput" placeholder="Nom de l'artiste, année, etc." class="rounded-input">
+        </div>
+        <div class="filters">
+            <label for="yearRange">Année</label>
+            <input type="range" id="yearRange" name="year" min="1970" max="2022" class="rounded-input">
+            
+            <label for="membersRange">Membres</label>
+            <input type="range" id="membersRange" name="members" min="1" max="10" class="rounded-input">
+            
+            <label for="cityInput">Ville</label>
+            <input type="text" id="cityInput" name="city" placeholder="Ville des concerts" class="rounded-input">
+        </div>
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <!-- Affichage des résultats -->
+    <div class="results">
+        {{ range .Groups }}
+            <div class="artist-card">
+                <img src="{{ .Image }}" alt="{{ .Name }}">
+                <div class="info">
+                    <h2>{{ .Name }}</h2>
+                    <p>Members: {{ range .Members }}{{ . }}, {{ end }}</p>
+                    <p>Creation Date: {{ .CreationDate }}</p>
+                    <p>First Album: {{ .FirstAlbum }}</p>
+                </div>
+            </div>
+        {{ end }}
+    </div>
+</div>
+
+</body>
+</html>

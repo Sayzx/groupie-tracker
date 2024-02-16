@@ -1,9 +1,9 @@
 package main
 
 import (
-	"main/pkg"
+	"main/internal"
 )
 
 func main() {
-	pkg.Run()
+	internal.Run()
 }

@@ -35,19 +35,14 @@ label {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
-  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .btn {
   background-color: #3498db;
-  color: #fff;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.btn:hover {
-  background-color: #2186c4;
-}
