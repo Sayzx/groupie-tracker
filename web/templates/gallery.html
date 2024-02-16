@@ -1,0 +1,27 @@
+<!-- templates/gallery.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/gallery.css">
+    <title>Groupie Tracker - Gallery</title>
+</head>
+<body>
+    <h1>Groupie Tracker - Gallery</h1>
+
+    <!-- Affichage des artistes sous forme de cartes -->
+    <div class="card-container">
+        {{ range .Artists }}
+            <div class="artist-card">
+                <img src="{{ .Image }}" alt="{{ .Name }}">
+                <div class="info">
+                    <h2>{{ .Name }}</h2>
+                    <p>Date de première sortie : {{ .FirstRelease }}</p>
+                    <p>Nombre de membres : {{ len .Members }}</p>
+                </div>
+            </div>
+        {{ end }}
+    </div>
+</body>
+</html>
