@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.spotify-logo {
+    width: 32px;
+    margin-right: 10px;
+}
+
+
+nav .nav-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+nav .nav-link:hover {
+    color: #1DB954;
+}
+
+main {
+    flex-grow: 1;
+    background-image: url('https://img.freepik.com/photos-premium/foule-gens-fond-flou-du-concert_798986-1102.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    text-align: center;
+}
+
+main h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-button {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #f3f3f3;
+}
+
+footer {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+@font-face {
+    font-family: 'Allan';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/allan/v24/ea8XadU7WuTxEub_NdW18g.woff2) format('woff2');
+    unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+ 
+@font-face {
+    font-family: 'Allan';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/allan/v24/ea8XadU7WuTxEubxNdU.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+
+@import url("https://fonts.googleapis.com/css2?family=Allan&display=swap");
+
+svg {
+    font-family: "Allan", sans-serif;
+    width: 100%; 
+    height: 100%;
+}
+
+svg text {
+    animation: stroke 7s infinite alternate;
+    stroke-width: 2;
+    stroke: #365FA0;
+    font-size: 300px;
+    dominant-baseline: middle;
+}
+
+@keyframes stroke {
+    0%   {
+        fill: rgba(72,138,204,0); 
+        stroke: rgba(54,95,160,1);
+        stroke-dashoffset: 25%; 
+        stroke-dasharray: 0 50%; 
+        stroke-width: 2;
+    }
+    70%  {
+        fill: rgba(72,138,204,0); 
+        stroke: rgba(54,95,160,1);
+    }
+    80%  {
+        fill: rgba(72,138,204,0); 
+        stroke: rgba(54,95,160,1); 
+        stroke-width: 3;
+    }
+    100% {
+        fill: rgba(72,138,204,1); 
+        stroke: rgba(54,95,160,0);
+        stroke-dashoffset: -25%; 
+        stroke-dasharray: 50% 0; 
+        stroke-width: 0;
+    }
+}
+
+.wrapper {
+
+};
