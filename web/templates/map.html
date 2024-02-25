@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Info</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+<script>
+    // Fonction pour initialiser la carte et ajouter des marqueurs
+    function initMap() {
+        // Initialisation de la carte Leaflet
+        var map = L.map('map').setView([0, 0], 2); // Vue globale initiale
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Exemple de données de localisation, à remplacer par les données récupérées via l'API
+        var locations = [
+            {"name": "Los Angeles, USA", "lat": 34.0522, "lon": -118.2437},
+            // Ajoutez d'autres villes et coordonnées ici
+        ];
+
+        // Ajout de marqueurs pour chaque localisation
+        locations.forEach(function(location) {
+            L.marker([location.lat, location.lon]).addTo(map)
+                .bindPopup(location.name);
+        });
+
+        // Ajuster la vue de la carte pour inclure tous les marqueurs
+        var group = new L.featureGroup(locations.map(function(location) {
+            return L.marker([location.lat, location.lon]);
+        }));
+        map.fitBounds(group.getBounds().pad(0.5)); // Ajuste la vue de la carte avec un peu de padding
+    }
+
+    // Appel de la fonction d'initialisation après le chargement de la page
+    document.addEventListener('DOMContentLoaded', initMap);
+</script>
+</body>
+</html>

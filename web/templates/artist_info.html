@@ -1,31 +1,74 @@
-<!-- templates/artist_info.html -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/artist_info.css">
-    <!-- Ajout de la bibliothèque Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <title>Artist Info</title>
 </head>
-
 <body>
     <div class="info-container">
         <div class="artist-info">
-            <img src="{{ .Image }}" alt="{{ .Name }}">
+            <input type="hidden" id="id" value="{{ .ID }}">
+            <img src="{{ .Image }}" alt="{{ .Name }}" class="artist-logo">
             <div class="info">
                 <h1>{{ .Name }}</h1>
                 <p>Date de création : {{ .CreationDate }}</p>
-                <p>Nombre de membres : {{ len .Members }}</p>
-                <p>ConcertDates : {{ .ConcertDates }}</p>
+                <p>Premier album : {{ .FirstAlbum }}</p>
+                <ul>
+                    <li>Liste des membres : ({{ len .Members }})
+                    {{range .Members}} <br>- {{ . }}
+                    {{end}}
+                </li>
+                </ul>
+                <p>Dates de concert : {{ .ConcertDates }}</p>
             </div>
         </div>
         <!-- Intégration de la carte Leaflet -->
-        <div id="map" class="artist-map"></div>
+        <div id="map" class="artist-map" style="width: 600px; height: 400px;"></div>
     </div>
-</body>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('map').setView([0, 0], 2); // Initialiser la carte avec une vue globale
 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Fonction pour convertir les noms de lieux en coordonnées géographiques
+        function getLatLng(location) {
+            const locations = {
+                "dunedin-new_zealand": [-45.8787605, 170.5027976],
+                "georgia-usa": [32.1656221, -82.9000751],
+                "los_angeles-usa": [34.0522342, -118.2436849],
+                "nagoya-japan": [35.1814464, 136.906398],
+                "north_carolina-usa": [35.7595731, -79.0192997],
+                "osaka-japan": [34.6937378, 135.5021651],
+                "penrose-new_zealand": [-36.904720, 174.809250],
+                "saitama-japan": [35.861729, 139.6454822],
+                // Ajoutez d'autres lieux ici au besoin
+            };
+            return locations[location] || [0, 0]; // Retourne 0,0 si le lieu n'est pas trouvé
+        }
+
+        // Appel à l'API pour obtenir les données des concerts
+        fetch('https://groupietrackers.herokuapp.com/api/relation/1')
+            .then(response => response.json())
+            .then(data => {
+                const locations = data.datesLocations;
+                for (let location in locations) {
+                    const latLng = getLatLng(location);
+                    const dates = locations[location].join(", ");
+                    L.marker(latLng).addTo(map)
+                        .bindPopup(`<b>${location.replace(/-/g, " ")}</b><br>${dates}`);
+                }
+                map.fitBounds(L.featureGroup(Object.keys(locations).map(location => L.marker(getLatLng(location)))).getBounds());
+            })
+            .catch(error => console.error('Erreur :', error));
+    });
+    </script>
+</body>
 </html>
