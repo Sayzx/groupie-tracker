@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Satoshi-Bold';
+    src: url('../fonts/Satoshi-Bold.woff2') format('woff2'),
+         url('../fonts/Satoshi-Bold.woff') format('woff'),
+         url('../fonts/Satoshi-Bold.ttf') format('truetype');
+         font-weight: 700;
+         font-display: swap;
+         font-style: normal;
+  }
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -78,6 +88,7 @@ main h1 {
     border-radius: 9999px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: Satoshi-Bold;
 }
 
 .search-button:hover {
