@@ -38,6 +38,10 @@ h1 {
     border-bottom: 1px solid #ddd;
 }
 
+.artist-link {
+    text-decoration: none;
+}
+
 .info {
     padding: 15px;
 }
@@ -47,6 +51,10 @@ h2 {
     color: #007bff;
 }
 
+h2:hover {
+    text-decoration: underline;
+}
+
 p {
     margin: 5px 0;
     color: #555;
@@ -54,3 +62,4 @@ p {
 
 
 
+/* assets/css/artist_info.css */

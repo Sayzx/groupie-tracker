@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/artist_info.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <title>Artist Info</title>
+    <title>Artist Info</title>    
 </head>
 <body>
     <div class="info-container">
@@ -26,7 +26,7 @@
             </div>
         </div>
         <!-- Intégration de la carte Leaflet -->
-        <div id="map" class="artist-map" style="width: 600px; height: 400px;"></div>
+        <div id="map" class="artist-map"></div>
     </div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
@@ -52,10 +52,11 @@
                 // Ajoutez d'autres lieux ici au besoin
             };
             return locations[location] || [0, 0]; // Retourne 0,0 si le lieu n'est pas trouvé
+            console.log(location);
         }
 
         // Appel à l'API pour obtenir les données des concerts
-        fetch('https://groupietrackers.herokuapp.com/api/relation/1')
+        fetch('https://groupietrackers.herokuapp.com/api/relation/{{ .ID }}')
             .then(response => response.json())
             .then(data => {
                 const locations = data.datesLocations;
@@ -64,6 +65,7 @@
                     const dates = locations[location].join(", ");
                     L.marker(latLng).addTo(map)
                         .bindPopup(`<b>${location.replace(/-/g, " ")}</b><br>${dates}`);
+                        console.log(location);
                 }
                 map.fitBounds(L.featureGroup(Object.keys(locations).map(location => L.marker(getLatLng(location)))).getBounds());
             })

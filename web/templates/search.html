@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,17 +43,6 @@
 
     <!-- Affichage des résultats -->
     <div class="results">
-        {{ range .Groups }}
-            <div class="artist-card">
-                <img src="{{ .Image }}" alt="{{ .Name }}">
-                <div class="info">
-                    <h2>{{ .Name }}</h2>
-                    <p>Members: {{ range .Members }}{{ . }}, {{ end }}</p>
-                    <p>Creation Date: {{ .CreationDate }}</p>
-                    <p>First Album: {{ .FirstAlbum }}</p>
-                </div>
-            </div>
-        {{ end }}
     </div>
 </div>
 
