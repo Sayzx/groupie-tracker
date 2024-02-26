@@ -26,12 +26,13 @@ body, html {
 }
 
 header {
-    background: rgba(0, 0, 0, 0.5);
+    background-color: #000000;
     color: white;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 60px;
 }
 
 .logo {
@@ -42,16 +43,17 @@ header {
 }
 
 .spotify-logo {
-    width: 32px;
-    margin-right: 10px;
+    width: 35px;
+    margin-right: 20px;
 }
 
 
 nav .nav-link {
     color: white;
+    font-family: 'Satoshi-Bold';
     text-decoration: none;
     margin: 0 1rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     transition: color 0.3s ease;
 }
 
@@ -61,16 +63,53 @@ nav .nav-link:hover {
 
 main {
     flex-grow: 1;
-    background-image: url('https://img.freepik.com/photos-premium/foule-gens-fond-flou-du-concert_798986-1102.jpg');
-    background-size: cover;
-    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+main::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background-image: url('https://img.freepik.com/photos-premium/foule-gens-fond-flou-du-concert_798986-1102.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    opacity: 1;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+    z-index: -3;
+    transform: scale(1.05);
+}
+
+main::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spotify_icon.svg/1982px-Spotify_icon.svg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1500px;
+    height: 1500px;
+    opacity: 0.5;
+    z-index: -2;
+    filter: blur(10px);
 }
 
 .main-content {
     text-align: center;
+}
+
+.container, .main-content, header, nav, body, html {
+    position: relative;
+    z-index: 1; /* Cela garantit que le contenu reste au-dessus de l'icône Spotify et de l'arrière-plan */
 }
 
 main h1 {
@@ -79,11 +118,18 @@ main h1 {
     margin-bottom: 1rem;
 }
 
+h2 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
 .search-button {
     background: white;
     color: #333;
     border: none;
-    padding: 0.5rem 2rem;
+    padding: 1.2rem 4rem;
+    margin-top: 20px;
     font-size: 1rem;
     border-radius: 9999px;
     cursor: pointer;
@@ -162,6 +208,15 @@ svg text {
     }
 }
 
-.wrapper {
+.green {
+    color: #2EF55A;
+    text-decoration: underline;
+}
 
-};
+
+.fa-play {
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
