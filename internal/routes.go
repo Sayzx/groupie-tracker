@@ -19,14 +19,14 @@ type ArtistInfoData struct {
 func Run() {
 	fmt.Println("Initialisation du serveur...")
 	// Serveur de fichiers statiques pour les assets
-	fs := http.FileServer(http.Dir("./web/assets"))
+	fs := http.FileServer(http.Dir("web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	fmt.Println("Route pour la page d'accueil")
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/templates/index.html")
+		http.ServeFile(w, r, "web/templates/index.html")
 	})
 	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/templates/register.html")
+		http.ServeFile(w, r, "web/templates/register.html")
 	})
 
 	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
@@ -41,7 +41,7 @@ func Run() {
 			Artists: artists,
 		}
 
-		tmpl, err := template.ParseFiles("./web/templates/search.html")
+		tmpl, err := template.ParseFiles("web/templates/search.html")
 		if err != nil {
 			http.Error(w, "Error parsing template", http.StatusInternalServerError)
 			return
@@ -66,7 +66,7 @@ func Run() {
 			Artists: artists,
 		}
 
-		tmpl, err := template.ParseFiles("./web/templates/gallery.html")
+		tmpl, err := template.ParseFiles("web/templates/gallery.html")
 		if err != nil {
 			http.Error(w, "Error parsing template", http.StatusInternalServerError)
 			return
@@ -117,7 +117,7 @@ func ArtisteInfo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Chargement et exécution du template avec les données
-	tmpl, err := template.ParseFiles("./web/templates/artist_info.html")
+	tmpl, err := template.ParseFiles("web/templates/artist_info.html")
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error parsing template: %v", err), http.StatusInternalServerError)
 		return
