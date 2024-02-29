@@ -21,18 +21,20 @@ body {
 .artist-info {
     background-color: #0056b3; /* Couleur d'accentuation bleue */
     color: white;
-    padding: 20px;
+    padding: 20px 40px; /* Agrandir la section bleue */
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
 }
 
 .artist-info img.artist-logo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-right: 20px;
+    width: 200px; /* Augmenter la taille du logo */
+    height: 200px;
+    border-radius: 10%;
+    /* margin-right: 50px; */
     object-fit: cover;
-    border: 4px solid white; /* Bordure blanche pour faire ressortir l'image */
+    border: 3px solid white; /* Bordure blanche pour faire ressortir l'image */
 }
 
 .info {
@@ -88,4 +90,42 @@ ul li {
 #map {
     width: 100%;
     height: 450px;
+}
+
+.relations ul {
+    margin: 0;
+    padding: 0;
+}
+
+.relations ul li {
+    list-style: none;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.relations ul li:last-child {
+    border-bottom: none;
+}
+
+.relations ul li .concert-date {
+    font-weight: bold;
+}
+
+.relations ul li .concert-city {
+    color: #666;
+}
+
+/* Mise en page pour les petits écrans */
+@media (max-width: 768px) {
+    .relations ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .relations ul li .concert-city {
+        margin-top: 5px;
+    }
 }
