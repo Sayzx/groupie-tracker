@@ -4,23 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/459ca3d53b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../assets/css/gallery.css">
     <title>Groupie Tracker - Gallery</title>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo">
-                <img src="../assets/img/Spotify_icon.svg.webp" alt="Spotify Logo" class="spotify-logo">
-                Groupie Tracker
-            </div>            
+            <a href="/">
+                <div class="logo">
+                    <img src="../assets/img/Spotify_icon.svg.webp" alt="Spotify Logo" class="spotify-logo">
+                </div>    
+            </a>       
             <nav>
-                <a href="acceuil" class="nav-link">Accueil</a>
-                <a href="gallery" class="nav-link">Gallery</a>
-                <a href="search" class="nav-link">Recherche</a>
+                <i id="theme-toggle" class="fa-solid fa-lightbulb" style="color: #fcfcfc; cursor: pointer;"></i>
+                <a href="search" class="nav-link"><i class="fas fa-search"></i></a>
             </nav>
         </header>
     </div>
+    <h1>Groupie Tracker - Gallery</h1>
     <!-- Affichage des artistes sous forme de cartes -->
     <div class="card-container">
         {{ range .Artists }}
@@ -37,4 +39,5 @@
         {{ end }}
     </div>
 </body>
+    <script src="../assets/js/lightmode.js"></script>
 </html>
