@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'missouri-usa': {lat: 37.9643, lon: -91.8318},
             'birmingham-uk': {lat: 52.4862, lon: -1.8904},
             'chicago-usa': {lat: 41.8781, lon: -87.6298},
+
         };
         return cities[city.toLowerCase()];
     }

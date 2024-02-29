@@ -13,7 +13,7 @@ type GalleryData struct {
 // ArtistInfoData structure to pass data to the artist_info template
 type ArtistInfoData struct {
 	Artist    Artist
-	Relations []string
+	Relations Relation
 }
 
 func Run() {
@@ -89,43 +89,43 @@ func Run() {
 }
 
 func ArtisteInfo(w http.ResponseWriter, r *http.Request) {
-	// Parse artist ID from query parameters
+	// Extraction de l'ID de l'artiste depuis les paramètres de requête
 	artistID := r.URL.Query().Get("id")
 	if artistID == "" {
 		http.Error(w, "Artist ID not provided", http.StatusBadRequest)
 		return
 	}
 
-	// Fetch data for the specific artist
+	// Récupération des informations de l'artiste
 	artist, err := GetArtistByID(artistID)
 	if err != nil {
 		http.Error(w, "Error fetching artist data", http.StatusInternalServerError)
 		return
 	}
 
-	// Fetch and format artist relations
-	relations, err := GetAndFormatArtistRelations(artistID)
+	// Nouveau: Récupération des relations de l'artiste
+	relations, err := GetRelationByID(artistID)
 	if err != nil {
 		http.Error(w, "Error fetching artist relations", http.StatusInternalServerError)
 		return
 	}
 
+	// Préparation des données pour le template, incluant les relations
 	data := ArtistInfoData{
 		Artist:    artist,
 		Relations: relations,
 	}
 
-	// Parse the template
+	// Chargement et exécution du template avec les données
 	tmpl, err := template.ParseFiles("./web/templates/artist_info.html")
 	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Error parsing template: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	// Execute the template with data
 	err = tmpl.Execute(w, data)
 	if err != nil {
-		http.Error(w, "Error executing template", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
 		return
 	}
 }

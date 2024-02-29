@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"sort"
-	"time"
 )
 
 // Artist structure
@@ -23,12 +21,16 @@ type Artist struct {
 	Dates        string   `json:"dates"`
 }
 
-type Relation map[string][]string
-
-// Structure pour stocker les dates et lieux temporaires
-type DateLocation struct {
-	Date     time.Time
+type LocationDates struct {
 	Location string
+	Dates    []string
+}
+
+type Relation struct {
+	ID             int
+	DatesLocations []LocationDates
+	Dates          []string
+	Cities         []string // Add Cities field
 }
 
 // GetArtists function to fetch artists from the API
@@ -68,58 +70,34 @@ func GetArtistByID(id string) (Artist, error) {
 	return artist, nil
 }
 
-// func GetArtistRelations(id string) (Relation, error) {
-// 	apiURL := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/relation/%s", id)
-// 	response, err := http.Get(apiURL)
-// 	if err != nil {
-// 		return Relation{}, err
-// 	}
-// 	defer response.Body.Close()
+func GetRelationByID(id string) (Relation, error) {
+	var apiResponse struct {
+		ID             int                 `json:"id"`
+		DatesLocations map[string][]string `json:"datesLocations"`
+	}
 
-// 	// Decode the JSON response
-// 	var relation Relation
-// 	decoder := json.NewDecoder(response.Body)
-// 	if err := decoder.Decode(&relation); err != nil {
-// 		return Relation{}, err
-// 	}
+	var relation Relation
 
-// 	fmt.Println(relation)
-// 	return relation, nil
-// }
-
-func GetAndFormatArtistRelations(id string) ([]string, error) {
 	apiURL := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/relation/%s", id)
 	response, err := http.Get(apiURL)
 	if err != nil {
-		return nil, err
+		return relation, err
 	}
 	defer response.Body.Close()
 
-	var relation Relation
 	decoder := json.NewDecoder(response.Body)
-	if err := decoder.Decode(&relation); err != nil {
-		return nil, err
+	if err := decoder.Decode(&apiResponse); err != nil {
+		return relation, err
 	}
 
-	var datesLocations []DateLocation
-	for location, dates := range relation {
-		for _, dateStr := range dates {
-			date, err := time.Parse("02-01-2006", dateStr)
-			if err != nil {
-				return nil, err
-			}
-			datesLocations = append(datesLocations, DateLocation{Date: date, Location: location})
+	relation.ID = apiResponse.ID
+	for city, dates := range apiResponse.DatesLocations {
+		// Pour chaque ville, ajoutez la première date à la slice Dates et la ville à la slice Cities.
+		if len(dates) > 0 { // Assurez-vous qu'il y a au moins une date.
+			relation.Dates = append(relation.Dates, dates[0])
+			relation.Cities = append(relation.Cities, city)
 		}
 	}
 
-	// Trier par date
-	sort.Slice(datesLocations, func(i, j int) bool {
-		return datesLocations[i].Date.Before(datesLocations[j].Date)
-	})
-
-	var formatted []string
-	for _, dl := range datesLocations {
-		formatted = append(formatted, fmt.Sprintf("Date: %s, Lieu: %s", dl.Date.Format("02-01-2006"), dl.Location))
-	}
-	return formatted, nil
+	return relation, nil
 }
