@@ -1,4 +1,13 @@
-/* assets/css/gallery.css */
+@font-face {
+    font-family: 'Satoshi-Bold';
+    src: url('../fonts/Satoshi-Bold.woff2') format('woff2'),
+         url('../fonts/Satoshi-Bold.woff') format('woff'),
+         url('../fonts/Satoshi-Bold.ttf') format('truetype');
+         font-weight: 700;
+         font-display: swap;
+         font-style: normal;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -12,14 +21,68 @@ h1 {
     padding: 20px 0;
 }
 
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+nav img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+nav .nav-link {
+    font-family: 'Satoshi-Bold';
+    color: white;
+    font-family: 'Satoshi-Bold';
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+nav .nav-link:hover {
+    color: #1DB954;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #000000;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.spotify-logo {
+    width: 35px;
+    margin-right: 20px;
+}
+
 .card-container {
+    background-color: #333;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .artist-card {
-    background-color: #fff;
+    background-color: #1f1f1f;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 15px;
@@ -48,7 +111,7 @@ h1 {
 
 h2 {
     margin: 0;
-    color: #007bff;
+    color: #1DB954  ;
 }
 
 h2:hover {
@@ -57,7 +120,7 @@ h2:hover {
 
 p {
     margin: 5px 0;
-    color: #555;
+    color: #ffffff;
 }
 
 

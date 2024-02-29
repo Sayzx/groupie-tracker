@@ -8,8 +8,19 @@
     <title>Groupie Tracker - Gallery</title>
 </head>
 <body>
-    <h1>Groupie Tracker - Gallery</h1>
-
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="../assets/img/Spotify_icon.svg.webp" alt="Spotify Logo" class="spotify-logo">
+                Groupie Tracker
+            </div>            
+            <nav>
+                <a href="acceuil" class="nav-link">Accueil</a>
+                <a href="gallery" class="nav-link">Gallery</a>
+                <a href="search" class="nav-link">Recherche</a>
+            </nav>
+        </header>
+    </div>
     <!-- Affichage des artistes sous forme de cartes -->
     <div class="card-container">
         {{ range .Artists }}
