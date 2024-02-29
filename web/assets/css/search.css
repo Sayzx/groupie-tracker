@@ -1,52 +1,17 @@
-@font-face {
-    font-family: 'Satoshi-Bold';
-    src: url('../fonts/Satoshi-Bold.woff2') format('woff2'),
-         url('../fonts/Satoshi-Bold.woff') format('woff'),
-         url('../fonts/Satoshi-Bold.ttf') format('truetype');
-         font-weight: 700;
-         font-display: swap;
-         font-style: normal;
-}
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body, html {
-    height: 100%;
-    font-family: 'Open Sans', sans-serif;
-}
-
-header {
-    background-color: #000000;
-    color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.spotify-logo {
-    width: 35px;
-    margin-right: 20px;
-}
-
+/* styles.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #1a1a1a;
     margin: 0;
     padding: 0;
     color: #fff;
+}
+
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
 }
 
 nav a {
@@ -61,17 +26,11 @@ nav img {
 }
 
 .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.container2 {
-    width: 850px;
-    margin: 25px auto;
+    max-width: 800px;
+    margin: 20px auto;
     background-color: #333;
-    padding: 65px;
-    border-radius: 80px;
+    padding: 20px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -83,24 +42,10 @@ form {
     margin-bottom: 20px;
 }
 
-nav .nav-link {
-    color: white;
-    font-family: 'Satoshi-Bold';
-    text-decoration: none;
-    margin: 0 1rem;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-nav .nav-link:hover {
-    color: #1DB954;
-}
-
 .rounded-input {
-    font-family: 'Satoshi-Bold';
     width: 100%;
     padding: 10px;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
     box-sizing: border-box;
     border-radius: 20px;
     border: none;
@@ -110,35 +55,24 @@ nav .nav-link:hover {
 
 .filters {
     margin-top: 10px;
-    text-align: center;
 }
 
 .filters label {
     display: block;
-    font-family: 'Satoshi-Bold';
     margin-top: 5px;
-    padding: 10px;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10px;
 }
 
 button {
-    background-color: #22b642;
+    background-color: #007bff;
     color: #fff;
     cursor: pointer;
     border: none;
     border-radius: 4px;
     padding: 10px;
-    font-family: 'Satoshi-Bold';
 }
 
 button:hover {
-    background-color: #198d32;
+    background-color: #0056b3;
 }
 
 .results {
@@ -146,3 +80,5 @@ button:hover {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
+/* ... Autres styles ... */
