@@ -41,7 +41,6 @@ func GetArtists() ([]Artist, error) {
 		return nil, err
 	}
 	defer response.Body.Close()
-	fmt.Println(response.Body)
 
 	// Decode the JSON response
 	var artists []Artist
