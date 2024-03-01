@@ -10,7 +10,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
+    background-color: #000000;
     color: #333;
     line-height: 1.6;
     padding: 20px;
@@ -28,7 +28,7 @@ body {
 
 /* En-tête de l'artiste */
 .artist-info {
-    background-color: #0056b3; /* Couleur d'accentuation bleue */
+    background-color: #333;
     color: white;
     padding: 20px 40px; /* Agrandir la section bleue */
     display: flex;
@@ -70,7 +70,7 @@ ul {
 
 ul li {
     font-family: 'Satoshi-Bold';
-    background-color: #0056b3;
+    background-color: darkslategray;
     margin: 8px 0;
     padding: 10px;
     border-radius: 5px;

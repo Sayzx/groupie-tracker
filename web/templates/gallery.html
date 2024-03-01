@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/459ca3d53b.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <link rel="stylesheet" href="../assets/css/gallery.css">
     <title>Groupie Tracker - Gallery</title>
 </head>
@@ -23,7 +24,6 @@
         </header>
     </div>
     <h1>Groupie Tracker - Gallery</h1>
-    <!-- Affichage des artistes sous forme de cartes -->
     <div class="card-container">
         {{ range .Artists }}
             <a href="/artist_info?id={{ .ID }}" class="artist-link">
