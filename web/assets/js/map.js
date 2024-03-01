@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Ici je fait un call sur cette url pour récupérer les coordonnées des villes
-    fetch('https://groupie.sayzx.fr/sayzx.json')
+    fetch('https://groupie.sayzx.fr/api/sayzx.json')
     .then(response => response.json())
     .then(cities => {
         var concertItems = document.querySelectorAll('.relations ul li');
