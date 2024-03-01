@@ -10,27 +10,82 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #000000;
+    background-color: #333;
     color: #333;
     line-height: 1.6;
-    padding: 20px;
+    margin: 0; /* Aucune marge pour le body */
+    padding: 0; /* Aucun padding pour le body */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+nav img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+nav .nav-link {
+    font-family: 'Satoshi-Bold';
+    color: white;
+    font-family: 'Satoshi-Bold';
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+nav .nav-link:hover {
+    color: #1DB954;
+}
+
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #000000;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.spotify-logo {
+    width: 40px;
 }
 
 /* Conteneur principal */
 .info-container {
+    padding-top: 25px;
     max-width: 960px;
     margin: 40px auto;
-    background: white;
+    background-color: #1DB954;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     border-radius: 8px;
-    overflow: hidden;
+    overflow: hidden; /* Pour que les coins arrondis s'appliquent à l'ombre */
 }
 
 /* En-tête de l'artiste */
 .artist-info {
-    background-color: #333;
+    background-color: #1f1f1f;
     color: white;
-    padding: 20px 40px; /* Agrandir la section bleue */
+    padding: 20px 40px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -52,6 +107,7 @@ body {
 
 .info h1 {
     font-family: 'Satoshi-Bold';
+    color: #1DB954;
     margin-bottom: 0.5rem;
 }
 
@@ -70,7 +126,7 @@ ul {
 
 ul li {
     font-family: 'Satoshi-Bold';
-    background-color: darkslategray;
+    background-color: #1f1f1f;
     margin: 8px 0;
     padding: 10px;
     border-radius: 5px;
@@ -99,6 +155,7 @@ ul li {
         font-size: 24px;
     }
 }
+
 #map {
     width: 100%;
     height: 450px;
@@ -140,4 +197,56 @@ ul li {
     .relations ul li .concert-city {
         margin-top: 5px;
     }
+}
+
+.light-mode {
+    background-color: #FBEEE6 !important;
+}
+
+.light-mode h1 {
+    color: #1DB954 !important;
+}
+
+.light-mode h2 {
+    color: #000000 !important;
+}
+
+.light-mode .card-container {
+    background-color: #fff !important;
+}
+
+.light-mode .artist-card {
+    background-color: #fff !important;
+}
+
+.light-mode p {
+    color: #000000 !important;
+}
+
+.light-mode .artist-info {
+    background-color: #ffffff;
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+
+.light-mode ul li {
+    font-family: 'Satoshi-Bold';
+    background-color: #ffffff;
+    color: #000000;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.light-mode .artist-info img.artist-logo {
+    width: 200px; /* Augmenter la taille du logo */
+    height: 200px;
+    border-radius: 10%;
+    margin-right: 50px;
+    object-fit: cover;
+    border: 3px solid rgb(0, 0, 0); /* Bordure blanche pour faire ressortir l'image */
 }
