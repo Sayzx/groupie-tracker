@@ -14,6 +14,7 @@ type GalleryData struct {
 type ArtistInfoData struct {
 	Artist    Artist
 	Relations Relation
+	SpotifyID string
 }
 
 func Run() {
@@ -85,38 +86,46 @@ func Run() {
 	if err := http.ListenAndServe(":9999", nil); err != nil {
 		fmt.Printf("Erreur lors du démarrage du serveur: %v\n", err)
 	}
-
 }
 
 func ArtisteInfo(w http.ResponseWriter, r *http.Request) {
-	// Extraction de l'ID de l'artiste depuis les paramètres de requête
 	artistID := r.URL.Query().Get("id")
 	if artistID == "" {
 		http.Error(w, "Artist ID not provided", http.StatusBadRequest)
 		return
 	}
 
-	// Récupération des informations de l'artiste
 	artist, err := GetArtistByID(artistID)
 	if err != nil {
 		http.Error(w, "Error fetching artist data", http.StatusInternalServerError)
 		return
 	}
 
-	// Nouveau: Récupération des relations de l'artiste
 	relations, err := GetRelationByID(artistID)
 	if err != nil {
 		http.Error(w, "Error fetching artist relations", http.StatusInternalServerError)
 		return
 	}
 
-	// Préparation des données pour le template, incluant les relations
+	token, err := getSpotifyToken("ea4f316cdc894f59aed435cc6f7f0e6e", "0844fe38663c4010a9fa8f193d4aa95b") // Remplacez par vos identifiants
+	if err != nil {
+		http.Error(w, "Failed to get Spotify token", http.StatusInternalServerError)
+		return
+	}
+
+	// Utilisez le nom de l'artiste pour obtenir l'ID Spotify
+	spotifyArtist, err := searchArtist(artist.Name, token)
+	if err != nil {
+		http.Error(w, "Failed to fetch Spotify artist", http.StatusInternalServerError)
+		return
+	}
+
 	data := ArtistInfoData{
 		Artist:    artist,
 		Relations: relations,
+		SpotifyID: spotifyArtist.ID,
 	}
 
-	// Chargement et exécution du template avec les données
 	tmpl, err := template.ParseFiles("web/templates/artist_info.html")
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error parsing template: %v", err), http.StatusInternalServerError)
