@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 type GalleryData struct {
 	Artists []Artist
+	Years   []int
 }
 
 // ArtistInfoData structure to pass data to the artist_info template
@@ -30,6 +33,13 @@ func Run() {
 	})
 
 	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+		// Récupération des paramètres de recherche à partir de l'URL
+		queryParams := r.URL.Query()
+		name := queryParams.Get("name")
+		year := queryParams.Get("year")
+		members := queryParams.Get("members")
+		city := queryParams.Get("city")
+
 		// Fetch data from the API using the function from api.go
 		artists, err := GetArtists()
 		if err != nil {
@@ -37,8 +47,16 @@ func Run() {
 			return
 		}
 
+		// Filtrer les artistes en fonction des paramètres de recherche
+		filteredArtists := filterArtists(artists, name, year, members, city)
+		var years []int
+		for year := 1960; year <= 2024; year++ {
+			years = append(years, year)
+		}
+
 		data := GalleryData{
-			Artists: artists,
+			Artists: filteredArtists,
+			Years:   years,
 		}
 
 		tmpl, err := template.ParseFiles("web/templates/search.html")
@@ -128,4 +146,37 @@ func ArtisteInfo(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
 		return
 	}
+}
+
+func filterArtists(artists []Artist, name, year, members, city string) []Artist {
+	var filtered []Artist
+	for _, artist := range artists {
+		if name != "" && !strings.Contains(strings.ToLower(artist.Name), strings.ToLower(name)) {
+			continue
+		}
+		if year != "" && artist.FirstAlbum[:4] != year {
+			continue
+		}
+		if members != "" {
+			membersInt, _ := strconv.Atoi(members) // Convertit le nombre de membres en entier
+			if len(artist.Members) != membersInt {
+				continue
+			}
+		}
+		if city != "" {
+			found := false
+			city = strings.ToLower(strings.TrimSpace(city)) // Nettoyez l'entrée de recherche pour la ville
+			for _, concertCity := range artist.ConcertCities {
+				if city == strings.ToLower(strings.TrimSpace(concertCity)) {
+					found = true
+					break
+				}
+			}
+			if !found {
+				continue
+			}
+		}
+		filtered = append(filtered, artist)
+	}
+	return filtered
 }

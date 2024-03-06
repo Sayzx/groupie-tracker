@@ -8,14 +8,15 @@ import (
 
 // Artist structure
 type Artist struct {
-	ID           int      `json:"id"`
-	Name         string   `json:"name"`
-	Image        string   `json:"image"`
-	FirstRelease string   `json:"firstRelease"`
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-	Relations    string   `json:"relations"`
+	ID            int      `json:"id"`
+	Name          string   `json:"name"`
+	Image         string   `json:"image"`
+	FirstRelease  string   `json:"firstRelease"`
+	Members       []string `json:"members"`
+	CreationDate  int      `json:"creationDate"`
+	FirstAlbum    string   `json:"firstAlbum"`
+	Relations     string   `json:"relations"`
+	ConcertCities []string `json:"concertCities"`
 }
 
 type LocationDates struct {

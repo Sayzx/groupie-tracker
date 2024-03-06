@@ -21,7 +21,7 @@
         </nav>
     </header>
     <div class="container2">
-        <form action="https://groupietrackers.herokuapp.com/api/artists" method="get">
+        <form id="searchForm" action="/search" method="get">
             <div class="search-container">
                 <input type="text" name="name" id="searchInput" placeholder="Nom de l'artiste, année, etc." class="rounded-input">
                 <button type="button" id="filterToggle" class="filter-btn">Filtres</button>
@@ -30,10 +30,11 @@
                 <label for="yearSelect">Année</label>
                 <select id="yearSelect" name="year" class="rounded-input1">
                     <option value="">Toutes</option>
-                    <option value="1970">1970</option>
-                    <option value="1980">1980</option>
-                    <!-- Autres années -->
+                    {{range .Years}}
+                    <option value="{{.}}">{{.}}</option>
+                    {{end}}
                 </select>
+            
                 
                 <label for="membersSelect">Membres</label>
                 <select id="membersSelect" name="members" class="rounded-input1">
@@ -57,16 +58,57 @@
         </form>
     </div>
     <div class="results">
-        <!-- Les résultats de recherche s'afficheront ici -->
-    </div>
+        {{range .Artists}}
+        <div class="artist-result">
+            <img src="{{.Image}}" alt="{{.Name}}">
+            <div class="info">
+                <h2>{{.Name}}</h2>
+                <p>Date de première sortie : {{.FirstAlbum}}</p>
+                <p>Nombre de membres : {{len .Members}}</p>
+            </div>
+        </div>
+        {{end}}
+    </div>    
 </div>
-
 <script>
-    // JavaScript pour basculer l'affichage des filtres
+
+function displayResults(data) {
+    var resultsDiv = document.querySelector('.results');
+    resultsDiv.innerHTML = ''; 
+
+    data.forEach(artist => {
+        var artistHtml = `<div class="artist-result">
+            <img src="${artist.Image}" alt="${artist.Name}">
+            <div class="info">
+                <h2>${artist.Name}</h2>
+                <p>Date de première sortie : ${artist.FirstAlbum}</p>
+                <p>Nombre de membres : ${artist.Members.length}</p>
+            </div>
+        </div>`;
+        resultsDiv.innerHTML += artistHtml;
+    });
+}
+</script>
+<script>
     document.getElementById('filterToggle').addEventListener('click', function() {
         var filtersPanel = document.getElementById('filtersPanel');
         filtersPanel.style.display = filtersPanel.style.display === 'block' ? 'none' : 'block';
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var yearSelect = document.getElementById('yearSelect');
+        if (yearSelect.length === 1) { // S'assure qu'il n'y a pas déjà des options ajoutées
+            for (var year = 1960; year <= 2024; year++) {
+                var option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+    });
+
+</script>
+
 </body>
 </html>
