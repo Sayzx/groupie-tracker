@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <link rel="stylesheet" href="../assets/css/search.css">
+    <script src="../assets/js/search.js"></script>
     <title>Groupie Tracker - Search</title>
 </head>
 <body>
@@ -23,7 +24,7 @@
     <div class="container2">
         <form id="searchForm" action="/search" method="get">
             <div class="search-container">
-                <input type="text" name="name" id="searchInput" placeholder="Nom de l'artiste, année, etc." class="rounded-input">
+                <input type="text" name="name" id="searchInput" onkeyup="searchArtist()" placeholder="Nom de l'artiste, année, etc." class="rounded-input">
                 <button type="button" id="filterToggle" class="filter-btn">Filtres</button>
             </div>
             <div class="filters" id="filtersPanel">
@@ -55,7 +56,9 @@
             <div class="button-container">
                 <button type="submit" class="search-btn">Rechercher</button>
             </div>
+            
         </form>
+        <div id="suggestions" class="suggestions"></div>
     </div>
     <div class="results">
         {{range .Artists}}
@@ -70,45 +73,6 @@
         {{end}}
     </div>    
 </div>
-<script>
-
-function displayResults(data) {
-    var resultsDiv = document.querySelector('.results');
-    resultsDiv.innerHTML = ''; 
-
-    data.forEach(artist => {
-        var artistHtml = `<div class="artist-result">
-            <img src="${artist.Image}" alt="${artist.Name}">
-            <div class="info">
-                <h2>${artist.Name}</h2>
-                <p>Date de première sortie : ${artist.FirstAlbum}</p>
-                <p>Nombre de membres : ${artist.Members.length}</p>
-            </div>
-        </div>`;
-        resultsDiv.innerHTML += artistHtml;
-    });
-}
-</script>
-<script>
-    document.getElementById('filterToggle').addEventListener('click', function() {
-        var filtersPanel = document.getElementById('filtersPanel');
-        filtersPanel.style.display = filtersPanel.style.display === 'block' ? 'none' : 'block';
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var yearSelect = document.getElementById('yearSelect');
-        if (yearSelect.length === 1) { // S'assure qu'il n'y a pas déjà des options ajoutées
-            for (var year = 1960; year <= 2024; year++) {
-                var option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                yearSelect.appendChild(option);
-            }
-        }
-    });
-
-</script>
 
 </body>
 </html>
