@@ -3,8 +3,6 @@ package internal
 import (
 	"fmt"
 	"html/template"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
@@ -24,119 +22,17 @@ type ArtistInfoData struct {
 
 func Run() {
 	fmt.Println("Initialisation du serveur...")
-	// Serveur de fichiers statiques pour les assets
+
 	fs := http.FileServer(http.Dir("web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
-	fmt.Println("Route pour la page d'accueil")
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "web/templates/index.html")
 	})
-	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/templates/register.html")
-	})
 
-	http.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
-		// Récupération des paramètres de recherche à partir de l'URL
-		queryParams := r.URL.Query()
-		name := queryParams.Get("name")
-		year := queryParams.Get("year")
-		members := queryParams.Get("members")
-		creationYear := queryParams.Get("creationYear")
-
-		artists, err := GetArtists()
-		if err != nil {
-			http.Error(w, "Error fetching data from API", http.StatusInternalServerError)
-			return
-		}
-
-		// Filtrer les artistes en fonction des paramètres de recherche
-		filteredArtists := filterArtists(artists, name, year, members, creationYear)
-		var years []int
-		for year := 1960; year <= 2024; year++ {
-			years = append(years, year)
-		}
-
-		data := GalleryData{
-			Artists: filteredArtists,
-			Years:   years,
-		}
-
-		tmpl, err := template.ParseFiles("web/templates/search.html")
-		if err != nil {
-			http.Error(w, "Error parsing template", http.StatusInternalServerError)
-			return
-		}
-
-		err = tmpl.Execute(w, data)
-		if err != nil {
-			http.Error(w, "Error executing template", http.StatusInternalServerError)
-			return
-		}
-	})
-
-	http.HandleFunc("/api/search/artists", func(writer http.ResponseWriter, request *http.Request) {
-		request.URL.Query().Get("query")
-
-		resp, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
-		if err != nil {
-			http.Error(writer, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		defer func(Body io.ReadCloser) {
-			err1 := Body.Close()
-			if err1 != nil {
-
-			}
-		}(resp.Body)
-
-		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			http.Error(writer, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		if request.Method == http.MethodOptions {
-			writer.Header().Set("Access-Control-Allow-Origin", "")
-			writer.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
-			writer.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-			writer.WriteHeader(http.StatusNoContent)
-			return
-		}
-
-		writer.Header().Set("Access-Control-Allow-Origin", "*")
-		writer.Header().Set("Content-Type", "application/json")
-
-		_, err = writer.Write(body)
-		if err != nil {
-			return
-		}
-	})
-
-	http.HandleFunc("/gallery", func(w http.ResponseWriter, r *http.Request) {
-		// Fetch data from the API using the function from api.go
-		artists, err := GetArtists()
-		if err != nil {
-			http.Error(w, "Error fetching data from API", http.StatusInternalServerError)
-			return
-		}
-
-		data := GalleryData{
-			Artists: artists,
-		}
-
-		tmpl, err := template.ParseFiles("web/templates/gallery.html")
-		if err != nil {
-			http.Error(w, "Error parsing template", http.StatusInternalServerError)
-			return
-		}
-
-		err = tmpl.Execute(w, data)
-		if err != nil {
-			http.Error(w, "Error executing template", http.StatusInternalServerError)
-			return
-		}
-	})
-
+	http.HandleFunc("/search", SearchHandler)
+	http.HandleFunc("/api/search/artists", SearchArtistsHandler)
+	http.HandleFunc("/gallery", GalleryHandler)
 	http.HandleFunc("/artist_info", ArtisteInfo)
 
 	fmt.Println("Server started at http://localhost:9999")
