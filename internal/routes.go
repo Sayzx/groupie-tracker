@@ -41,9 +41,8 @@ func Run() {
 		name := queryParams.Get("name")
 		year := queryParams.Get("year")
 		members := queryParams.Get("members")
-		city := queryParams.Get("city")
+		creationYear := queryParams.Get("creationYear")
 
-		// Fetch data from the API using the function from api.go
 		artists, err := GetArtists()
 		if err != nil {
 			http.Error(w, "Error fetching data from API", http.StatusInternalServerError)
@@ -51,7 +50,7 @@ func Run() {
 		}
 
 		// Filtrer les artistes en fonction des paramètres de recherche
-		filteredArtists := filterArtists(artists, name, year, members, city)
+		filteredArtists := filterArtists(artists, name, year, members, creationYear)
 		var years []int
 		for year := 1960; year <= 2024; year++ {
 			years = append(years, year)
@@ -197,31 +196,25 @@ func ArtisteInfo(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func filterArtists(artists []Artist, name, year, members, city string) []Artist {
+func filterArtists(artists []Artist, name, year, members, creationYear string) []Artist {
 	var filtered []Artist
 	for _, artist := range artists {
 		if name != "" && !strings.Contains(strings.ToLower(artist.Name), strings.ToLower(name)) {
 			continue
 		}
-		if year != "" && artist.FirstAlbum[:4] != year {
+		firstAlbumYear := artist.FirstAlbum[len(artist.FirstAlbum)-4:]
+		if year != "" && firstAlbumYear != year {
 			continue
 		}
-		if members != "" {
-			membersInt, _ := strconv.Atoi(members) // Convertit le nombre de membres en entier
-			if len(artist.Members) != membersInt {
+		if creationYear != "" {
+			creationYearInt, err := strconv.Atoi(creationYear)
+			if err != nil || artist.CreationDate != creationYearInt {
 				continue
 			}
 		}
-		if city != "" {
-			found := false
-			city = strings.ToLower(strings.TrimSpace(city)) // Nettoyez l'entrée de recherche pour la ville
-			for _, concertCity := range artist.ConcertCities {
-				if city == strings.ToLower(strings.TrimSpace(concertCity)) {
-					found = true
-					break
-				}
-			}
-			if !found {
+		if members != "" {
+			membersInt, err := strconv.Atoi(members) // Convertit le nombre de membres en entier
+			if err != nil || len(artist.Members) != membersInt {
 				continue
 			}
 		}

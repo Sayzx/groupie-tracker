@@ -20,7 +20,7 @@ function showSuggestions(suggestions) {
     if (suggestions.length > 0) {
         suggestions.forEach(artist => {
             var suggestionElement = document.createElement('div');
-            suggestionElement.innerHTML = `<a href="/artist_info?id=${artist.id}">${artist.name}</a>`; // Fixed template literal
+            suggestionElement.innerHTML = `<a href="/artist_info?id=${artist.id}">${artist.name}</a>`;
             suggestionsContainer.appendChild(suggestionElement);
         });
         suggestionsContainer.style.display = 'block';

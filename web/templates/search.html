@@ -27,15 +27,22 @@
                 <button type="button" id="filterToggle" class="filter-btn">Filtres</button>
             </div>
             <div class="filters" id="filtersPanel">
-                <label for="yearSelect">Année</label>
+                <label for="yearSelect">Année du premier album</label>
                 <select id="yearSelect" name="year" class="rounded-input1">
                     <option value="">Toutes</option>
                     {{range .Years}}
                     <option value="{{.}}">{{.}}</option>
                     {{end}}
                 </select>
-            
-                
+
+                <label for="creationYearSelect">Année de création</label>
+                <select id="creationYearSelect" name="creationYear" class="rounded-input1">
+                    <option value="">Toutes</option>
+                    {{range .Years}}
+                    <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                </select>
+
                 <label for="membersSelect">Membres</label>
                 <select id="membersSelect" name="members" class="rounded-input1">
                     <option value="">Tous</option>
@@ -48,9 +55,6 @@
                     <option value="7">7</option>
                     <option value="8">8</option>
                 </select>
-                
-                <label for="cityInput">Ville de concerts</label>
-                <input type="text" id="cityInput" name="city" placeholder="Exemples : Paris, etc." class="rounded-input1">
             </div>
             <div class="button-container">
                 <button type="submit" class="search-btn">Rechercher</button>
