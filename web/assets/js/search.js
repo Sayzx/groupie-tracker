@@ -34,13 +34,13 @@ function showSuggestions(suggestions) {
 
 function displayResults(artists) {
     const resultsDiv = document.querySelector('.results');
-    resultsDiv.innerHTML = ''; // Efface les résultats précédents
+    resultsDiv.innerHTML = '';
 
     if (artists.length > 0) {
-        artists.forEach(artist => {
+        artists.forEach((artist, index) => {
             const artistHtml = `
                 <a href="/artist_info?id=${artist.id}" class="artist-link">
-                    <div class="artist-result">
+                    <div class="artist-result" style="transition-delay: ${index * 50}ms">
                         <img src="${artist.image}" alt="${artist.name}">
                         <div class="info">
                             <h2>${artist.name}</h2>
@@ -51,6 +51,12 @@ function displayResults(artists) {
                 </a>
             `;
             resultsDiv.innerHTML += artistHtml;
+        });
+
+        // Applique l'animation après que les éléments sont ajoutés au DOM
+        requestAnimationFrame(() => {
+            const artistElements = resultsDiv.querySelectorAll('.artist-result');
+            artistElements.forEach(el => el.classList.add('show'));
         });
     } else {
         resultsDiv.innerHTML = `<div class="no-results">Aucun Résultats...</div>`;
