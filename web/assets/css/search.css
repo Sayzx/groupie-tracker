@@ -125,11 +125,11 @@ form {
     width: 300px;
 }
 
-.artist-card:hover {
+.artist-result:hover {
     transform: scale(1.05);
 }
 
-.artist-card img {
+.artist-result img {
     width: 100%;
     height: auto;
     border-bottom: 1px solid #ddd;

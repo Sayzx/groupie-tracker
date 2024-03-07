@@ -65,6 +65,7 @@
     </div>
     <div class="results">
         {{range .Artists}}
+        <a href="/artist_info?id={{ .ID }}" class="artist-link">
         <div class="artist-result">
             <img src="{{.Image}}" alt="{{.Name}}">
             <div class="info">
