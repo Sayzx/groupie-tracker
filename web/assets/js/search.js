@@ -1,17 +1,58 @@
-console.log('search.js loaded');
+let allArtists = [];
+let debounceTimeout;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Supposez que vous chargez tous les artistes ici
+    fetch('/api/search/artists')
+        .then(response => response.json())
+        .then(data => {
+            allArtists = data; // Adaptez cette ligne selon la structure de votre réponse API
+            displayResults(allArtists); // Affichez tous les artistes par défaut
+        })
+        .catch(error => console.error('Error:', error));
+
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+        const input = searchInput.value.trim().toLowerCase();
+        const filteredArtists = input ? allArtists.filter(artist => artist.name.toLowerCase().includes(input)) : allArtists;
+        displayResults(filteredArtists); // Affiche les artistes filtrés
+    });
+});
+
+function displayResults(artists) {
+    const resultsDiv = document.querySelector('.results');
+    resultsDiv.innerHTML = ''; // Efface les résultats précédents
+
+    artists.forEach(artist => {
+        const artistHtml = `
+            <a href="/artist_info?id=${artist.id}" class="artist-link">
+                <div class="artist-result">
+                    <img src="${artist.image}" alt="${artist.name}">
+                    <div class="info">
+                        <h2>${artist.name}</h2>
+                        <p>Date de première sortie : ${artist.firstAlbum}</p>
+                        <p>Nombre de membres : ${artist.members.length}</p>
+                    </div>
+                </div>
+            </a>
+        `;
+        resultsDiv.innerHTML += artistHtml; // Ajoute la carte de l'artiste aux résultats
+    });
+}
+
 function searchArtist() {
-    var input = document.getElementById('searchInput').value;
-    if (input.length > 0) {
-        fetch('/api/search/artists?query=' + encodeURIComponent(input))
-            .then(response => response.json())
-            .then(data => {
-                var suggestions = data.filter(artist => artist.name.toLowerCase().includes(input.toLowerCase()));
-                showSuggestions(suggestions);
-            })
-            .catch(error => console.error('Error:', error));
-    } else {
-        document.getElementById('suggestions').style.display = 'none';
-    }
+    var input = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+        if (input.length > 0) {
+            // Filtrez les artistes basé sur l'input
+            let filteredArtists = allArtists.filter(artist => artist.name.toLowerCase().includes(input));
+            showSuggestions(filteredArtists);
+        } else {
+            document.getElementById('suggestions').style.display = 'none';
+        }
+    }, 300);
 }
 
 function showSuggestions(suggestions) {
@@ -28,38 +69,3 @@ function showSuggestions(suggestions) {
         suggestionsContainer.style.display = 'none';
     }
 }
-
-
-function displayResults(data) {
-    var resultsDiv = document.querySelector('.results');
-    resultsDiv.innerHTML = ''; 
-
-    data.forEach(artist => {
-        var artistHtml = `<div class="artist-result">
-            <img src="${artist.Image}" alt="${artist.Name}">
-            <div class="info">
-                <h2>${artist.Name}</h2>
-                <p>Date de première sortie : ${artist.FirstAlbum}</p>
-                <p>Nombre de membres : ${artist.Members.length}</p>
-            </div>
-        </div>`;
-        resultsDiv.innerHTML += artistHtml;
-    });
-}
-
-    document.getElementById('filterToggle').addEventListener('click', function() {
-        var filtersPanel = document.getElementById('filtersPanel');
-        filtersPanel.style.display = filtersPanel.style.display === 'block' ? 'none' : 'block';
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var yearSelect = document.getElementById('yearSelect');
-        if (yearSelect.length === 1) { // S'assure qu'il n'y a pas déjà des options ajoutées
-            for (var year = 1960; year <= 2024; year++) {
-                var option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                yearSelect.appendChild(option);
-            }
-        }
-    });
