@@ -51,6 +51,14 @@ body {
     color: #fff;
 }
 
+.no-results {
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Satoshi-Bold';
+    color: #ffffff;
+}
+
 .filter-btn {
     padding: 10px;
     width: 100px;
