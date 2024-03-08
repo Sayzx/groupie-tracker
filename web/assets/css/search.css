@@ -240,7 +240,8 @@ nav .nav-link:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10px;
+    height: 100%;
+    width: 100%;
 }
 
 button {
@@ -325,5 +326,63 @@ p {
 @media (max-width: 436px) {
     h1 {
         font-size: 1.5rem;
+    }
+}
+
+/* Petits écrans / téléphones */
+@media (max-width: 600px) {
+    .container2 {
+        width: 90%;
+        padding: 20px;
+        margin-top: 5%;
+    }
+
+    .search-container, .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .rounded-input, .rounded-input1, .search-btn, .reset-btn {
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 20px;
+    }
+
+    .filter-btn {
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 20px;
+    }
+
+    .reset-button-container {
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    #suggestions {
+        width: 90%;
+        top: 100%;
+        left: 5%;
+    }
+
+    .artist-result {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    nav .nav-link {
+        font-size: 1rem;
+    }
+}
+
+/* Tablettes et petits écrans larges */
+@media (min-width: 601px) and (max-width: 900px) {
+    .container2 {
+        width: 80%;
+    }
+
+    #suggestions {
+        width: 80%;
+        left: 10%;
     }
 }
