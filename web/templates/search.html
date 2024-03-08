@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/459ca3d53b.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <link rel="stylesheet" href="../assets/css/search.css">
     <title>Groupie Tracker - Search</title>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="logo">
-            <img src="../assets/img/Spotify_icon.svg.webp" alt="Spotify Logo" class="spotify-logo">
-            Groupie Tracker
-        </div>            
-        <nav>
-            <a href="acceuil" class="nav-link">Accueil</a>
-            <a href="gallery" class="nav-link">Gallery</a>
-            <a href="search" class="nav-link">Recherche</a>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <a href="/">
+                <div class="logo">
+                    <img src="../assets/img/Spotify_icon.svg.webp" alt="Spotify Logo" class="spotify-logo">
+                </div>    
+            </a>       
+            <nav>
+                <i id="theme-toggle" class="fa-solid fa-lightbulb" style="color: #fcfcfc; cursor: pointer;"></i>
+                <a href="gallery" class="nav-link"><i class="fas fa-grip-horizontal"></i></a>
+            </nav>
+        </header>
     <div class="container2">
         <form id="searchForm" action="/search" method="get">
             <div class="search-container">
@@ -83,4 +84,5 @@
 
 </body>
 <script src="../assets/js/search.js"></script>
+<script src="../assets/js/lightmode3.js"></script>
 </html>

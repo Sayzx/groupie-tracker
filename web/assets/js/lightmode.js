@@ -5,11 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (document.body.classList.contains('light-mode')) {
             this.style.color = '#FFA500'; // Icône jaune en mode clair
-            // Appliquer les styles du mode clair
             applyLightModeStyles();
         } else {
             this.style.color = '#fcfcfc'; // Icône blanche en mode sombre
-            // Réappliquer les styles du mode sombre
             applyDarkModeStyles();
         }
     });
@@ -21,7 +19,6 @@ function applyLightModeStyles() {
     document.querySelectorAll('.card-container').forEach(el => el.style.backgroundColor = '#fff');
     document.querySelectorAll('.artist-card').forEach(el => el.style.backgroundColor = '#fff');
     document.querySelectorAll('p').forEach(el => el.style.color = '#555');
-    // Continuez avec d'autres éléments...
 }
 
 function applyDarkModeStyles() {
@@ -30,5 +27,4 @@ function applyDarkModeStyles() {
     document.querySelectorAll('.card-container').forEach(el => el.style.backgroundColor = '#333');
     document.querySelectorAll('.artist-card').forEach(el => el.style.backgroundColor = '#1f1f1f');
     document.querySelectorAll('p').forEach(el => el.style.color = '#ffffff');
-    // Continuez avec d'autres éléments...
 }

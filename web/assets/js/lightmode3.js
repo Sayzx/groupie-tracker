@@ -15,16 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function applyLightModeStyles() {
     document.body.style.backgroundColor = '#f5f5f5';
-    document.querySelectorAll('h1').forEach(el => el.style.color = '#1DB954');
+    document.querySelectorAll('h1').forEach(el => el.style.color = '#333');
     document.querySelectorAll('.card-container').forEach(el => el.style.backgroundColor = '#fff');
     document.querySelectorAll('.artist-card').forEach(el => el.style.backgroundColor = '#fff');
     document.querySelectorAll('p').forEach(el => el.style.color = '#555');
+    document.querySelectorAll('.rounded-input1').forEach(el => el.style.backgroundColor = '#fff');
 }
 
 function applyDarkModeStyles() {
     document.body.style.backgroundColor = '#333';
-    document.querySelectorAll('h1').forEach(el => el.style.color = '#1DB954');
+    document.querySelectorAll('h1').forEach(el => el.style.color = '#fff');
     document.querySelectorAll('.card-container').forEach(el => el.style.backgroundColor = '#333');
     document.querySelectorAll('.artist-card').forEach(el => el.style.backgroundColor = '#1f1f1f');
     document.querySelectorAll('p').forEach(el => el.style.color = '#ffffff');
+    document.querySelectorAll('.rounded-input1').forEach(el => el.style.backgroundColor = '#444');
 }

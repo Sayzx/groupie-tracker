@@ -8,6 +8,10 @@
          font-style: normal;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -89,6 +93,19 @@ nav img {
     margin-right: 10px;
 }
 
+nav .nav-link {
+    font-family: 'Satoshi-Bold';
+    color: white;
+    font-family: 'Satoshi-Bold';
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+nav .nav-link:hover {
+    color: #1DB954;
+}
 .container {
     background-color: #333;
     height: 100%;
@@ -159,19 +176,6 @@ form {
     padding: 15px;
 }
 
-nav .nav-link {
-    color: white;
-    font-family: 'Satoshi-Bold';
-    text-decoration: none;
-    margin: 0 1rem;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-nav .nav-link:hover {
-    color: #1DB954;
-}
-
 .search-container {
     display: flex;
     position: relative;
@@ -240,8 +244,7 @@ nav .nav-link:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    height: 56px;
 }
 
 button {
@@ -322,6 +325,49 @@ p {
     text-decoration: none;
 }
 
+.light-mode {
+    background-color: #FBEEE6 !important;
+}
+
+.light-mode h1 {
+    color: #000000 !important;
+}
+
+.light-mode .rounded-input {
+    background-color: #ffffff !important;
+    color: #000 !important;
+}
+
+.light-mode .rounded-input1 {
+    background-color: #ffffff !important;
+    color: #000 !important;
+}
+
+.light-mode .container  {
+    background-color: #FBEEE6 !important;
+}
+
+.light-mode .results {
+    background-color: #FBEEE6 !important;
+}
+
+.light-mode .no-results {
+    background-color: #FBEEE6 !important;
+    color: #000 !important;
+}
+
+.light-mode .artist-result {
+    background-color: #fff !important;
+}
+
+.light-mode .filters label {
+    background-color: #FBEEE6 !important;
+    color: #000 !important;
+}
+
+.light-mode p {
+    color: #555 !important;
+}
 
 @media (max-width: 436px) {
     h1 {
@@ -343,7 +389,7 @@ p {
     }
 
     .rounded-input, .rounded-input1, .search-btn, .reset-btn {
-        width: 100%;
+        width: 50%;
         margin-top: 10px;
         border-radius: 20px;
     }

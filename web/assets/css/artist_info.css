@@ -8,6 +8,10 @@
          font-style: normal;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #333;
@@ -56,7 +60,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    height: 28px;
 }
 
 .logo {
@@ -67,10 +71,10 @@ header {
 }
 
 .spotify-logo {
-    width: 40px;
+    width: 35px;
+    margin-right: 20px;
 }
 
-/* Conteneur principal */
 .info-container {
     padding-top: 25px;
     max-width: 960px;
