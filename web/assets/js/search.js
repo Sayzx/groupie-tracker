@@ -23,7 +23,11 @@ function showSuggestions(suggestions) {
     if (suggestions.length > 0) {
         suggestions.forEach(artist => {
             var suggestionElement = document.createElement('div');
-            suggestionElement.innerHTML = `<a href="/artist_info?id=${artist.id}">${artist.name}</a>`;
+            suggestionElement.className = 'suggestion-item';
+            suggestionElement.innerHTML = `
+                <img src="${artist.image}" alt="${artist.name}" class="suggestion-image">
+                <a href="/artist_info?id=${artist.id}" class="suggestion-link">${artist.name}</a>
+            `;
             suggestionsContainer.appendChild(suggestionElement);
         });
         suggestionsContainer.style.display = 'block';
@@ -31,6 +35,7 @@ function showSuggestions(suggestions) {
         suggestionsContainer.style.display = 'none';
     }
 }
+
 
 function displayResults(artists) {
     const resultsDiv = document.querySelector('.results');
@@ -86,6 +91,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('filterToggle').addEventListener('click', function() {
         var filtersPanel = document.getElementById('filtersPanel');
         filtersPanel.style.display = filtersPanel.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.getElementById('resetFilters').addEventListener('click', function() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('yearSelect').selectedIndex = 0;
+        document.getElementById('creationYearSelect').selectedIndex = 0;
+        document.getElementById('membersSelect').selectedIndex = 0;
+        displayResults(allArtists);
     });
 });
 

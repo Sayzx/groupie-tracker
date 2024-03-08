@@ -182,6 +182,25 @@ nav .nav-link:hover {
     margin-top: 10%;
 }
 
+.reset-button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.reset-btn {
+    padding: 10px 20px;
+    background-color: #c9302c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Satoshi-Bold';
+}
+
+.reset-btn:hover {
+    background-color: #d9534f;
+}
+
 .rounded-input1 {
     font-family: 'Satoshi-Bold';
     flex-grow: 1;
@@ -282,6 +301,26 @@ p {
     color: inherit;
     display: block;
 }
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.suggestion-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.suggestion-link {
+    color: white;
+    text-decoration: none;
+}
+
 
 @media (max-width: 436px) {
     h1 {
