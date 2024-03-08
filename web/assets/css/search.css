@@ -392,12 +392,16 @@ p {
         width: 50%;
         margin-top: 10px;
         border-radius: 20px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .filter-btn {
-        width: 100%;
+        width: 50%;
         margin-top: 10px;
         border-radius: 20px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .reset-button-container {
