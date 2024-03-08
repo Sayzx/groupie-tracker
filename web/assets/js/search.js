@@ -87,6 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gestionnaire pour le filtrage dynamique à la saisie
     document.getElementById('searchInput').addEventListener('input', filterAndDisplayArtists);
 
+    // Gestionnaire pour le filtrage dynamique des filtres
+    document.getElementById('yearSelect').addEventListener('change', filterAndDisplayArtists);
+    document.getElementById('creationYearSelect').addEventListener('change', filterAndDisplayArtists);
+    document.getElementById('membersSelect').addEventListener('change', filterAndDisplayArtists);
+
     // Toggle pour les filtres supplémentaires
     document.getElementById('filterToggle').addEventListener('click', function() {
         var filtersPanel = document.getElementById('filtersPanel');
@@ -98,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('yearSelect').selectedIndex = 0;
         document.getElementById('creationYearSelect').selectedIndex = 0;
         document.getElementById('membersSelect').selectedIndex = 0;
-        displayResults(allArtists);
+        filterAndDisplayArtists(); // Affiche tous les artistes par défaut après la réinitialisation
     });
 });
 
