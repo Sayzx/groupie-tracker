@@ -277,9 +277,9 @@ p {
 #suggestions {
     position: absolute;
     background-color: #484242;
-    top: 42%;
+    top: 43%;
     color: #000;
-    width: 13%;
+    width: 30%;
     max-height: 100px;
     overflow-y: auto;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -289,7 +289,7 @@ p {
 }
 
 #suggestions div {
-    padding: 10px 15px;
+    padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.1s;
     font-family: 'Satoshi-Bold';
@@ -309,7 +309,7 @@ p {
 .suggestion-item {
     display: flex;
     align-items: center;
-    padding: 5px 10px;
+    padding: 5px 8px;
 }
 
 .suggestion-image {

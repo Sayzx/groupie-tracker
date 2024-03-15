@@ -8,25 +8,60 @@ function searchArtist() {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
         if (input.length > 0) {
-            // Filtrez les artistes basé sur l'input
-            let filteredArtists = allArtists.filter(artist => artist.name.toLowerCase().includes(input));
-            showSuggestions(filteredArtists);
+            let filteredSuggestions = allArtists.flatMap(artist => {
+                let suggestions = [];
+                // Match sur le nom de l'artiste
+                if (artist.name.toLowerCase().includes(input)) {
+                    suggestions.push({ label: `${artist.name} - Artiste`, data: artist });
+                }
+                // Match sur les membres
+                if (artist.members) {
+                    artist.members.forEach(member => {
+                        if (member.toLowerCase().includes(input)) {
+                            suggestions.push({ label: `${member} - Membre`, data: artist });
+                        }
+                    });
+                }
+                // Match sur la location
+                if (artist.location && artist.location.toLowerCase().includes(input)) {
+                    suggestions.push({ label: `${artist.name} (${artist.location}) - Location`, data: artist });
+                }
+                // Match sur la première date d'album
+                if (artist.firstAlbum && artist.firstAlbum.toLowerCase().includes(input)) {
+                    suggestions.push({ label: `${artist.name} (${artist.firstAlbum}) - Première album`, data: artist });
+                }
+                // Match sur la date de création
+                if (artist.creationDate && artist.creationDate.toString().includes(input)) {
+                    suggestions.push({ label: `${artist.name} (${artist.creationDate}) - Date de création`, data: artist });
+                }
+                // Match sur les lieux de concerts
+                if (artist.concerts) {
+                    artist.concerts.forEach(concert => {
+                        if (concert.toLowerCase().includes(input)) {
+                            suggestions.push({ label: `${artist.name} (${concert}) - Lieu de concert`, data: artist });
+                        }
+                    });
+                }
+                return suggestions;
+            });
+            showSuggestions(filteredSuggestions);
         } else {
             document.getElementById('suggestions').style.display = 'none';
         }
     }, 300);
 }
 
+
 function showSuggestions(suggestions) {
     var suggestionsContainer = document.getElementById('suggestions');
     suggestionsContainer.innerHTML = '';
     if (suggestions.length > 0) {
-        suggestions.forEach(artist => {
+        suggestions.forEach(suggestion => {
             var suggestionElement = document.createElement('div');
             suggestionElement.className = 'suggestion-item';
             suggestionElement.innerHTML = `
-                <img src="${artist.image}" alt="${artist.name}" class="suggestion-image">
-                <a href="/artist_info?id=${artist.id}" class="suggestion-link">${artist.name}</a>
+                <img src="${suggestion.data.image}" alt="${suggestion.data.name}" class="suggestion-image">
+                <a href="/artist_info?id=${suggestion.data.id}" class="suggestion-link">${suggestion.label}</a>
             `;
             suggestionsContainer.appendChild(suggestionElement);
         });
@@ -35,7 +70,6 @@ function showSuggestions(suggestions) {
         suggestionsContainer.style.display = 'none';
     }
 }
-
 
 function displayResults(artists) {
     const resultsDiv = document.querySelector('.results');
