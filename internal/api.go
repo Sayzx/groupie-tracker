@@ -88,8 +88,7 @@ func GetRelationByID(id string) (Relation, error) {
 
 	relation.ID = apiResponse.ID
 	for city, dates := range apiResponse.DatesLocations {
-		// Pour chaque ville, ajoutez la première date à la slice Dates et la ville à la slice Cities.
-		if len(dates) > 0 { // Assurez-vous qu'il y a au moins une date.
+		if len(dates) > 0 {
 			relation.Dates = append(relation.Dates, dates[0])
 			relation.Cities = append(relation.Cities, city)
 		}

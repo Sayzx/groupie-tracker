@@ -78,19 +78,19 @@ function displayResults(artists) {
     if (artists.length > 0) {
         artists.forEach((artist, index) => {
             const artistHtml = `
-                <a href="/artist_info?id=${artist.id}" class="artist-link">
-                    <div class="artist-result" style="transition-delay: ${index * 50}ms">
-                        <img src="${artist.image}" alt="${artist.name}">
-                        <div class="info">
-                            <h2>${artist.name}</h2>
-                            <p>Date de première sortie : ${artist.firstAlbum}</p>
-                            <p>Nombre de membres : ${artist.members.length}</p>
-                        </div>
+            <a href="/artist_info?id=${artist.id}" class="artist-link">
+                <div class="artist-result">
+                    <img src="${artist.image}" alt="${artist.name}">
+                    <div class="info">
+                        <h2>${artist.name}</h2>
+                        <p>Date de première sortie : ${artist.firstAlbum}</p>
+                        <p>Nombre de membres : ${artist.members.length}</p>
                     </div>
-                </a>
-            `;
-            resultsDiv.innerHTML += artistHtml;
-        });
+                </div>
+            </a>
+        `;
+        resultsDiv.innerHTML += artistHtml;
+});
 
         // Applique l'animation après que les éléments sont ajoutés au DOM
         requestAnimationFrame(() => {
