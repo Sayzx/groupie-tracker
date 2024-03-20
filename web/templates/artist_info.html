@@ -61,6 +61,14 @@
             </div>
         <!-- Intégration de la carte Leaflet -->
         <div id="map" class="artist-map"></div>
+        <div id="comment-section">
+            <h2>Commentaires</h2>
+            <form id="comment-form" action="/comment" method="post">
+                <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>
+                <button type="submit">Publier</button>
+            </form>
+        </div>
+        
        
     </div>
 </body>

@@ -1,9 +1,10 @@
-package internal
+package handler
 
 import (
 	"html/template"
 	"io"
 	"io/ioutil"
+	"main/internal/api"
 	"net/http"
 )
 
@@ -16,7 +17,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	city := queryParams.Get("city")
 
 	// Fetch data from the API using the function from api.go
-	artists, err := GetArtists()
+	artists, err := api.GetArtists()
 	if err != nil {
 		http.Error(w, "Error fetching data from API", http.StatusInternalServerError)
 		return

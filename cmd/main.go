@@ -1,9 +1,9 @@
 package main
 
 import (
-	"main/internal"
+	"main/internal/routes"
 )
 
 func main() {
-	internal.Run()
+	routes.Run()
 }

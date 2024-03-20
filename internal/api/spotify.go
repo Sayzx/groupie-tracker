@@ -1,4 +1,4 @@
-package internal
+package api
 
 import (
 	"encoding/base64"
@@ -15,7 +15,7 @@ type SpotifyArtist struct {
 	Name string
 }
 
-func getSpotifyToken(clientID, clientSecret string) (string, error) {
+func GetSpotifyToken(clientID, clientSecret string) (string, error) {
 	url := "https://accounts.spotify.com/api/token"
 	method := "POST"
 
@@ -45,7 +45,7 @@ func getSpotifyToken(clientID, clientSecret string) (string, error) {
 	return tokenResp.AccessToken, nil
 }
 
-func searchArtist(artistName, accessToken string) (SpotifyArtist, error) {
+func SearchArtist(artistName, accessToken string) (SpotifyArtist, error) {
 	var artist SpotifyArtist
 	url := fmt.Sprintf("https://api.spotify.com/v1/search?q=%s&type=artist&limit=1", url.QueryEscape(artistName))
 
