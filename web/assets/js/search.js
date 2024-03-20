@@ -44,7 +44,7 @@ function searchArtist() {
                     if (city.includes(input)) {
                         cityToArtistsMap[city].forEach(artistInCity => {
                             if (!suggestionsSet.has(artistInCity.id)) {
-                                filteredSuggestions.push({ label: `${artistInCity.name} (${city}) - Location`, data: artistInCity });
+                                filteredSuggestions.push({ label: `${artistInCity.name} (${city}) - Ville de concert`, data: artistInCity });
                                 suggestionsSet.add(artistInCity.id);
                             }
                         });
