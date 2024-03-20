@@ -23,6 +23,8 @@ func Run() {
 	http.HandleFunc("/gallery", handler.GalleryHandler)
 	http.HandleFunc("/artist_info", handler.ArtisteInfo)
 
+	handler.Proxy()
+
 	fmt.Println("Server started at http://localhost:9999")
 	if err := http.ListenAndServe(":9999", nil); err != nil {
 		fmt.Printf("Erreur lors du démarrage du serveur: %v\n", err)
