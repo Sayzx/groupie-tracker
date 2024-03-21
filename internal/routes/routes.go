@@ -22,11 +22,10 @@ func Run() {
 	http.HandleFunc("/api/search/artists", handler.SearchArtistsHandler)
 	http.HandleFunc("/gallery", handler.GalleryHandler)
 	http.HandleFunc("/artist_info", handler.ArtisteInfo)
+	http.HandleFunc("/discord/", handler.DiscordLoginHandler)
 
-	handler.Proxy()
-
-	fmt.Println("Server started at http://localhost:9999")
-	if err := http.ListenAndServe(":9999", nil); err != nil {
+	fmt.Println("Server started at http://localhost:8080")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		fmt.Printf("Erreur lors du démarrage du serveur: %v\n", err)
 	}
 }

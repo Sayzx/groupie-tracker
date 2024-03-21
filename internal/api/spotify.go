@@ -9,7 +9,6 @@ import (
 	"strings"
 )
 
-// SpotifyArtist contient l'ID et le nom de l'artiste pour construire l'URL d'intégration
 type SpotifyArtist struct {
 	ID   string
 	Name string
