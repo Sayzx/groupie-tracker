@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-// Artist structure
 type Artist struct {
 	ID           int      `json:"id"`
 	Name         string   `json:"name"`
@@ -27,10 +26,9 @@ type Relation struct {
 	ID             int
 	DatesLocations []LocationDates
 	Dates          []string
-	Cities         []string // Add Cities field
+	Cities         []string
 }
 
-// GetArtists function to fetch artists from the API
 func GetArtists() ([]Artist, error) {
 	apiURL := "https://groupietrackers.herokuapp.com/api/artists"
 	response, err := http.Get(apiURL)
@@ -39,7 +37,6 @@ func GetArtists() ([]Artist, error) {
 	}
 	defer response.Body.Close()
 
-	// Decode the JSON response
 	var artists []Artist
 	decoder := json.NewDecoder(response.Body)
 	if err := decoder.Decode(&artists); err != nil {
@@ -57,7 +54,6 @@ func GetArtistByID(id string) (Artist, error) {
 	}
 	defer response.Body.Close()
 
-	// Decode the JSON response
 	var artist Artist
 	decoder := json.NewDecoder(response.Body)
 	if err := decoder.Decode(&artist); err != nil {

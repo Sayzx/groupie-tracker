@@ -12,7 +12,6 @@ type GalleryData struct {
 }
 
 func GalleryHandler(w http.ResponseWriter, r *http.Request) {
-	// Fetch data from the API using the function from api.go
 	artists, err := api.GetArtists()
 	if err != nil {
 		http.Error(w, "Error fetching data from API", http.StatusInternalServerError)

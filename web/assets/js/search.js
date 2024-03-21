@@ -82,7 +82,6 @@ function loadLocationsAndMapToArtists() {
     fetch('/api/locations') // Utilisation du proxy pour contourner la politique CORS
         .then(response => response.json())
         .then(data => {
-            // Supposons que data.index contient vos données de locations
             data.index.forEach(location => {
                 location.locations.forEach(city => {
                     // Pour chaque ville, nous associons les artistes qui y ont joué

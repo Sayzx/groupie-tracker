@@ -182,6 +182,19 @@ svg text {
     dominant-baseline: middle;
 }
 
+.green {
+    color: #2EF55A;
+    text-decoration: underline;
+}
+
+
+.fa-play {
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
 @keyframes stroke {
     0%   {
         fill: rgba(72,138,204,0); 
@@ -206,17 +219,4 @@ svg text {
         stroke-dasharray: 50% 0; 
         stroke-width: 0;
     }
-}
-
-.green {
-    color: #2EF55A;
-    text-decoration: underline;
-}
-
-
-.fa-play {
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-right: 20px;
-    transition: color 0.3s ease;
 }

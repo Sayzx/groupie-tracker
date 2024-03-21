@@ -17,8 +17,8 @@ body {
     background-color: #333;
     color: #333;
     line-height: 1.6;
-    margin: 0; /* Aucune marge pour le body */
-    padding: 0; /* Aucun padding pour le body */
+    margin: 0;
+    padding: 0;
 }
 
 nav a {
@@ -45,7 +45,6 @@ nav .nav-link {
 nav .nav-link:hover {
     color: #1DB954;
 }
-
 
 .container {
     height: 100%;
@@ -82,7 +81,7 @@ header {
     background-color: #1DB954;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     border-radius: 8px;
-    overflow: hidden; /* Pour que les coins arrondis s'appliquent à l'ombre */
+    overflow: hidden;
 }
 
 /* En-tête de l'artiste */
@@ -97,12 +96,12 @@ header {
 }
 
 .artist-info img.artist-logo {
-    width: 200px; /* Augmenter la taille du logo */
+    width: 200px;
     height: 200px;
     border-radius: 10%;
     margin-right: 50px;
     object-fit: cover;
-    border: 3px solid white; /* Bordure blanche pour faire ressortir l'image */
+    border: 3px solid white;
 }
 
 .info {
@@ -136,28 +135,11 @@ ul li {
     border-radius: 5px;
 }
 
-/* Carte Leaflet */
 .artist-map {
     width: 100%;
     height: 300px; /* Ajustez selon les besoins */
     background-color: #ddd;
     margin-top: 20px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .artist-info {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .artist-info img.artist-logo {
-        margin: 0 auto 20px;
-    }
-
-    .info h1 {
-        font-size: 24px;
-    }
 }
 
 #map {
@@ -189,18 +171,6 @@ ul li {
 
 .relations ul li .concert-city {
     color: #666;
-}
-
-/* Mise en page pour les petits écrans */
-@media (max-width: 768px) {
-    .relations ul li {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .relations ul li .concert-city {
-        margin-top: 5px;
-    }
 }
 
 .light-mode {
@@ -247,54 +217,82 @@ ul li {
 }
 
 .light-mode .artist-info img.artist-logo {
-    width: 200px; /* Augmenter la taille du logo */
+    width: 200px;
     height: 200px;
     border-radius: 10%;
     margin-right: 50px;
     object-fit: cover;
-    border: 3px solid rgb(0, 0, 0); /* Bordure blanche pour faire ressortir l'image */
+    border: 3px solid rgb(0, 0, 0);
 }
 
 
 /* Style global de la section des commentaires */
 #comment-section {
-    max-width: 600px; /* Largeur maximale de la section pour la garder centrée et lisible */
-    margin: 20px auto; /* Centrage de la section */
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
-    background-color: #f9f9f9; /* Couleur de fond légère */
-    border-radius: 8px; /* Bordures arrondies pour un look moderne */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile pour du relief */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #comment-section h2 {
-    color: #333; /* Couleur du texte plus sombre pour le titre */
-    margin-bottom: 20px; /* Espace entre le titre et le formulaire */
+    color: #333;
+    margin-bottom: 20px;
 }
 
 /* Style du formulaire de commentaire */
 #comment-form {
     display: flex;
-    flex-direction: column; /* Alignement vertical des éléments du formulaire */
+    flex-direction: column;
 }
 
 #comment-form input[type="text"] {
-    font-size: 16px; /* Taille de police confortable */
-    padding: 10px; /* Padding pour augmenter la taille de la zone de texte */
-    margin-bottom: 10px; /* Espace entre les champs de formulaire */
-    border: 1px solid #ccc; /* Bordure subtile */
-    border-radius: 4px; /* Bordures légèrement arrondies */
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 #comment-form button {
-    cursor: pointer; /* Change le curseur pour indiquer que le bouton est cliquable */
-    padding: 10px 15px; /* Padding généreux pour rendre le bouton plus grand et plus facile à cliquer */
-    background-color: #007bff; /* Couleur de fond bleue */
-    color: white; /* Texte blanc pour contraste */
-    border: none; /* Aucune bordure pour le bouton */
-    border-radius: 4px; /* Bordures arrondies pour le bouton */
-    transition: background-color 0.3s; /* Transition pour un effet de survol */
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 #comment-form button:hover {
-    background-color: #0056b3; /* Assombrir le bouton au survol pour un feedback visuel */
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .artist-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .artist-info img.artist-logo {
+        margin: 0 auto 20px;
+    }
+
+    .info h1 {
+        font-size: 24px;
+    }
+}
+
+/* Mise en page pour les petits écrans */
+@media (max-width: 768px) {
+    .relations ul li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .relations ul li .concert-city {
+        margin-top: 5px;
+    }
 }

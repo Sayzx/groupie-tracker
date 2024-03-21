@@ -16,7 +16,6 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	members := queryParams.Get("members")
 	city := queryParams.Get("city")
 
-	// Fetch data from the API using the function from api.go
 	artists, err := api.GetArtists()
 	if err != nil {
 		http.Error(w, "Error fetching data from API", http.StatusInternalServerError)
