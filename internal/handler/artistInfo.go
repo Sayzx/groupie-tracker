@@ -72,16 +72,19 @@ func filterArtists(artists []api.Artist, name, year, members, creationYear strin
 		if name != "" && !strings.Contains(strings.ToLower(artist.Name), strings.ToLower(name)) {
 			continue
 		}
+
 		firstAlbumYear := artist.FirstAlbum[len(artist.FirstAlbum)-4:]
 		if year != "" && firstAlbumYear != year {
 			continue
 		}
+
 		if creationYear != "" {
 			creationYearInt, err := strconv.Atoi(creationYear)
 			if err != nil || artist.CreationDate != creationYearInt {
 				continue
 			}
 		}
+
 		if members != "" {
 			membersInt, err := strconv.Atoi(members) // Convertit le nombre de membres en entier
 			if err != nil || len(artist.Members) != membersInt {
