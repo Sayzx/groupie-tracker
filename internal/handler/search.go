@@ -55,6 +55,7 @@ func SearchArtistsHandler(writer http.ResponseWriter, request *http.Request) {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
 	defer func(Body io.ReadCloser) {
 		err1 := Body.Close()
 		if err1 != nil {

@@ -25,6 +25,7 @@ func GetSpotifyToken(clientID, clientSecret string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	req.Header.Add("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(clientID+":"+clientSecret)))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
@@ -37,6 +38,7 @@ func GetSpotifyToken(clientID, clientSecret string) (string, error) {
 	var tokenResp struct {
 		AccessToken string `json:"access_token"`
 	}
+
 	err = json.NewDecoder(res.Body).Decode(&tokenResp)
 	if err != nil {
 		return "", err
