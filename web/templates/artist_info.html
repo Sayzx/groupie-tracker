@@ -62,23 +62,26 @@
         <div id="map" class="artist-map"></div>
         <div id="comment-section">
             <h2>Commentaires</h2>
-            <form id="comment-form" action="/comment" method="post">
             <div class="discord-info">
+                {{if .DiscordAvatar}}
                 <input type="hidden" name="discordName" value="{{.DiscordName}}">
                 <input type="hidden" name="discordAvatar" value="{{.DiscordAvatar}}">
-                
-                <img src="{{.DiscordAvatar}}" alt="Avatar Discord" style="width:100px; height:auto;">
+                <img src="{{.DiscordAvatar}}" alt="Avatar Discord" class="discord-avatar">
+                <form id="comment-form" action="/comment" method="post">
+                        <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>
+                        <button type="submit">Publier</button>
+                    </form>
+                {{else}}
+                    <img src="../assets/img/avatar-anonyme.png" alt="Avatar Anonyme" class="discord-avatar">
+                    <p>Pour publier un commentaire, veuillez vous <a href="/discord">connecter via Discord</a>.</p>
+                {{end}}
             </div>
-           
-                <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>
-                <button type="submit">Publier</button>
-            </form>
-        </div>
+        </div>        
         
        
     </div>
 </body>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>      
 <script src="../assets/js/map.js"></script>
-<script src="../assets/js/lightmode2.js"></script>
+<script src="../assets/js/lightmode.js"></script>
 </html>

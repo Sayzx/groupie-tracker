@@ -225,6 +225,73 @@ ul li {
     border: 3px solid rgb(0, 0, 0);
 }
 
+/* Style global de la section des commentaires */
+#comment-section {
+    font-family: 'Satoshi-Bold';
+    max-width: 880px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#comment-section h2 {
+    font-family: 'Satoshi-Bold';
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#comment-section p {
+    font-family: 'Satoshi-Bold';
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.discord-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.discord-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Style du formulaire de commentaire */
+#comment-form {
+    flex-grow: 1;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-form input[type="text"] {
+    font-family: 'Satoshi-Bold';
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#comment-form button {
+    font-family: 'Satoshi-Bold';
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+#comment-form button:hover {
+    background-color: #0056b3;
+}
 
 
 
