@@ -20,8 +20,9 @@ func Run() {
 
 	http.HandleFunc("/search", handler.SearchHandler)
 	http.HandleFunc("/api/search/artists", handler.SearchArtistsHandler)
-	http.HandleFunc("/gallery", handler.GalleryHandler)
+	http.HandleFunc("/gallery", handler.UnifiedGalleryHandler)
 	http.HandleFunc("/artist_info", handler.ArtisteInfo)
+	http.HandleFunc("/discord", handler.DiscordLoginHandler)
 
 	handler.Proxy()
 

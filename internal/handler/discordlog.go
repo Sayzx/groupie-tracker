@@ -10,6 +10,7 @@ import (
 )
 
 type User struct {
+	ID       string `json:"id"`
 	Username string `json:"username"`
 	Avatar   string `json:"avatar"`
 }
@@ -38,35 +39,15 @@ func DiscordLoginHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Redirection effectuée")
 }
 
-func CallbackHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Début de CallbackHandler")
-	code := r.URL.Query().Get("code")
-	token, err := discordOauthConfig.Exchange(r.Context(), code)
-	if err != nil {
-		http.Error(w, "Impossible d'échanger le code d'autorisation contre un token d'accès", http.StatusBadRequest)
-		fmt.Printf("Erreur lors de l'échange du code d'autorisation : %v\n", err)
-		return
-	}
-	user, err := GetUserDetails(token.AccessToken)
-	if err != nil {
-		http.Error(w, "Impossible de récupérer les détails de l'utilisateur", http.StatusInternalServerError)
-		fmt.Printf("Erreur lors de la récupération des détails de l'utilisateur : %v\n", err)
-		return
-	}
-	fmt.Printf("Bonjour %s. Avatar : %s\n", user.Username, user.Avatar)
-	mu.Lock()
-	connectedUsers[user.Username] = *user
-	mu.Unlock()
-}
-
+// GetUserDetails récupère les détails de l'utilisateur Discord à partir du token d'accès
 func GetUserDetails(accessToken string) (*User, error) {
+	client := &http.Client{}
 	req, err := http.NewRequest("GET", "https://discord.com/api/users/@me", nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("Authorization", "Bearer "+accessToken)
 
-	client := http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
