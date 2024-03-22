@@ -2,6 +2,7 @@ package routes
 
 import (
 	"fmt"
+	"main/internal/db"
 	"main/internal/handler"
 	"net/http"
 
@@ -10,7 +11,8 @@ import (
 
 func Run() {
 	fmt.Println("Initialisation du serveur...")
-
+	dbConn := db.InitDB()
+	defer dbConn.Close()
 	fs := http.FileServer(http.Dir("web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
@@ -22,6 +24,7 @@ func Run() {
 	http.HandleFunc("/api/search/artists", handler.SearchArtistsHandler)
 	http.HandleFunc("/gallery", handler.UnifiedGalleryHandler)
 	http.HandleFunc("/artist_info", handler.ArtisteInfo)
+	http.HandleFunc("/comment", handler.SubmitCommentHandler(dbConn))
 	http.HandleFunc("/discord", handler.DiscordLoginHandler)
 
 	handler.Proxy()

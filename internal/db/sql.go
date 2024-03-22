@@ -3,17 +3,20 @@ package db
 import (
 	"database/sql"
 	"log"
+
+	_ "github.com/go-sql-driver/mysql" // Ensure you import the MySQL driver
 )
 
-func initDB() *sql.DB {
-	// Initialisation et connexion à la base de données MySQL.
+// InitDB initializes and returns a connection to the database.
+func InitDB() *sql.DB {
+	// Initialization and connection to the MySQL database.
 	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/groupie")
 	if err != nil {
-		log.Fatalf("Erreur lors de la connexion à la base de données: %v\n", err)
+		log.Fatalf("Error connecting to the database: %v", err)
 	}
-	// Vérifiez que la connexion à la base de données est réussie.
+	// Check that the database connection is successful.
 	if err := db.Ping(); err != nil {
-		log.Fatalf("Échec de la connexion à la base de données: %v\n", err)
+		log.Fatalf("Failed to connect to the database: %v", err)
 	}
 	return db
 }
