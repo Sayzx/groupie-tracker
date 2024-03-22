@@ -1,81 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/459ca3d53b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../assets/css/artist_info.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-    <title>Artist Info</title>    
-</head>
-<body>
-    <div class="container">
-        <header>
-            <a href="/">
-                <div class="logo">
-                    <img src="../assets/img/Spotify_icon.svg.webp" alt="Spotify Logo" class="spotify-logo">
-                </div>
-            </a>
-            <nav>
-                <i id="theme-toggle" class="fa-solid fa-lightbulb" style="color: #fcfcfc; cursor: pointer;"></i>
-                <a href="search" class="nav-link"><i class="fas fa-search"></i></a>
-            </nav>
-        </header>
-    </div>
-    <div class="info-container">
-
-            <div class="artist-info">
-                <input type="hidden" id="id" value="{{ .Artist.ID }}">
-                <img src="{{ .Artist.Image }}" alt="{{ .Artist.Name }}" class="artist-logo">
-                <div class="info">
-                    <h1>{{ .Artist.Name }}</h1>
-                    <p>Date de création : {{ .Artist.CreationDate }}</p>
-                    <p>Premier album : {{ .Artist.FirstAlbum }}</p>
-                    <div class="right-spotify">
-                    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/459ca3d53b.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../assets/css/artist_info.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+        <title>Artist Info</title>    
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <a href="/">
+                    <div class="logo">
+                        <img src="../assets/img/Spotify_icon.svg.webp" alt="Spotify Logo" class="spotify-logo">
                     </div>
-                    <ul>
-                        <li>Liste des membres : ({{ len .Artist.Members }})
-                        {{range .Artist.Members}} <br>- {{ . }}
-                        {{end}}
-                        </li>
-                    </ul>
-                    <div class="relations">
-                        <h2>Concerts</h2>
-                        {{ if .Relations }}
-                        <ul>
-                            {{ range $index, $date := .Relations.Dates }}
-                            <li>Date: {{ $date }} - City: {{ index $.Relations.Cities $index }}</li>
-                            {{ end }}
-                        </ul>
-                        {{ else }}
-                        <p>Aucune information sur les concerts disponible.</p>
-                        {{ end }}
-                    
-                    </div>
-
-
-                </div>
-                <iframe src="https://open.spotify.com/embed/artist/{{.SpotifyID}}" width="280" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-            </div>
-        <div id="map" class="artist-map"></div>
-        <div id="comment-section">
-            <h2>Commentaires</h2>
-            <div class="discord-info">
-                <p>Nom d'utilisateur : {{.DiscordName}}</p>
-                <img src="{{.DiscordAvatar}}" alt="Avatar Discord" style="width:100px; height:auto;">
-            </div>
-            <form id="comment-form" action="/comment" method="post">
-                <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>
-                <button type="submit">Publier</button>
-            </form>
+                </a>
+                <nav>
+                    <i id="theme-toggle" class="fa-solid fa-lightbulb" style="color: #fcfcfc; cursor: pointer;"></i>
+                    <a href="search" class="nav-link"><i class="fas fa-search"></i></a>
+                </nav>
+            </header>
         </div>
+        <div class="info-container">
+
+                <div class="artist-info">
+                    <input type="hidden" id="id" value="{{ .Artist.ID }}">
+                    <img src="{{ .Artist.Image }}" alt="{{ .Artist.Name }}" class="artist-logo">
+                    <div class="info">
+                        <h1>{{ .Artist.Name }}</h1>
+                        <p>Date de création : {{ .Artist.CreationDate }}</p>
+                        <p>Premier album : {{ .Artist.FirstAlbum }}</p>
+                        <div class="right-spotify">
+                        
+                        </div>
+                        <ul>
+                            <li>Liste des membres : ({{ len .Artist.Members }})
+                            {{range .Artist.Members}} <br>- {{ . }}
+                            {{end}}
+                            </li>
+                        </ul>
+                        <div class="relations">
+                            <h2>Concerts</h2>
+                            {{ if .Relations }}
+                            <ul>
+                                {{ range $index, $date := .Relations.Dates }}
+                                <li>Date: {{ $date }} - City: {{ index $.Relations.Cities $index }}</li>
+                                {{ end }}
+                            </ul>
+                            {{ else }}
+                            <p>Aucune information sur les concerts disponible.</p>
+                            {{ end }}
+                        
+                        </div>
+
+
+                    </div>
+                    <iframe src="https://open.spotify.com/embed/artist/{{.SpotifyID}}" width="280" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                </div>
+            <div id="map" class="artist-map"></div>
+            <div id="comment-section">
+                <h2>Commentaires</h2>
+                <div class="discord-info">
+                    <p>Nom d'utilisateur : {{.DiscordName}}</p>
+                    <img src="{{.DiscordAvatar}}" alt="Avatar Discord" style="width:100px; height:auto;">
+                </div>
+                <form id="comment-form" action="/comment" method="post">
+                    <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>
+                    <button type="submit">Publier</button>
+                </form>
+            </div>
+            
         
-       
-    </div>
-</body>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>      
-<script src="../assets/js/map.js"></script>
-<script src="../assets/js/lightmode2.js"></script>
-</html>
+        </div>
+    </body>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>      
+    <script src="../assets/js/map.js"></script>
+    <script src="../assets/js/lightmode2.js"></script>
+    </html>
