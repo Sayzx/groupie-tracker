@@ -63,9 +63,9 @@
         <div id="comment-section">
             <h2>Commentaires</h2>
             <div class="discord-info">
-                {{if .DiscordAvatar}}
                 <input type="hidden" name="discordName" value="{{.DiscordName}}">
                 <input type="hidden" name="discordAvatar" value="{{.DiscordAvatar}}">
+                {{if .DiscordAvatar}}
                 <img src="{{.DiscordAvatar}}" alt="Avatar Discord" class="discord-avatar">
                 <form id="comment-form" action="/comment" method="post">
                         <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>

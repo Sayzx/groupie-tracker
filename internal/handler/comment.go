@@ -15,18 +15,18 @@ func SubmitCommentHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		if err := r.ParseForm(); err != nil {
-			log.Printf("Error parsing form: %v\n", err)
-			http.Error(w, "Failed to parse form", http.StatusBadRequest)
-			return
-		}
-
-		// Extract form values
-		comment := r.FormValue("comment")
+		// Extrait les valeurs du formulaire
 		discordName := r.FormValue("discordName")
 		discordAvatar := r.FormValue("discordAvatar")
+		comment := r.FormValue("comment")
+
+		// Debug print
+		log.Printf("Comment: %s\n", comment)
+		log.Printf("Discord Name: %s\n", discordName)
+		log.Printf("Discord Avatar: %s\n", discordAvatar)
 
 		// Prepare SQL statement
+		log.Println("Preparing SQL statement...")
 		stmt, err := db.Prepare("INSERT INTO comments (discord_name, discord_avatar, comment) VALUES (?, ?, ?)")
 		if err != nil {
 			log.Fatalf("Error preparing SQL statement: %v\n", err)
@@ -34,6 +34,7 @@ func SubmitCommentHandler(db *sql.DB) http.HandlerFunc {
 		defer stmt.Close()
 
 		// Execute SQL statement
+		log.Println("Executing SQL statement...")
 		_, err = stmt.Exec(discordName, discordAvatar, comment)
 		if err != nil {
 			log.Fatalf("Error executing SQL statement: %v\n", err)

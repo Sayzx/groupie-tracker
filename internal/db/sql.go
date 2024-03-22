@@ -10,7 +10,7 @@ import (
 // InitDB initializes and returns a connection to the database.
 func InitDB() *sql.DB {
 	// Initialization and connection to the MySQL database.
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/groupie")
+	db, err := sql.Open("mysql", "sayzx:MonNouveauMot2P@sse@tcp(pro.sayzx.fr:3306)/groupie")
 	if err != nil {
 		log.Fatalf("Error connecting to the database: %v", err)
 	}
