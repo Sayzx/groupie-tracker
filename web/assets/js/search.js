@@ -1,8 +1,7 @@
-console.log('search.js loaded');
 let allArtists = [];
 let debounceTimeout;
 
-let cityToArtistsMap = {}; // Cette map va associer les villes aux artistes
+let cityToArtistsMap = {};
 
 function searchArtist() {
     var input = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -98,32 +97,27 @@ function loadLocationsAndMapToArtists() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Chargement initial des artistes
     fetch('/api/search/artists')
         .then(response => response.json())
         .then(data => {
             allArtists = data;
-            displayResults(allArtists); // Affiche tous les artistes par défaut
+            displayResults(allArtists); 
             populateCityToArtistsMap(allArtists);
             loadLocationsAndMapToArtists();
         })
         .catch(error => console.error('Error:', error));
 
-    // Empêcher la soumission standard du formulaire et filtrer sur la base des entrées
     document.getElementById('searchForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Empêche la soumission standard du formulaire
+        event.preventDefault();
         filterAndDisplayArtists();
     });
 
-    // Gestionnaire pour le filtrage dynamique à la saisie
     document.getElementById('searchInput').addEventListener('input', filterAndDisplayArtists);
 
-    // Gestionnaire pour le filtrage dynamique des filtres
     document.getElementById('yearSelect').addEventListener('change', filterAndDisplayArtists);
     document.getElementById('creationYearSelect').addEventListener('change', filterAndDisplayArtists);
     document.getElementById('membersSelect').addEventListener('change', filterAndDisplayArtists);
 
-    // Toggle pour les filtres supplémentaires
     document.getElementById('filterToggle').addEventListener('click', function() {
         var filtersPanel = document.getElementById('filtersPanel');
         filtersPanel.style.display = filtersPanel.style.display === 'block' ? 'none' : 'block';
@@ -134,14 +128,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('yearSelect').selectedIndex = 0;
         document.getElementById('creationYearSelect').selectedIndex = 0;
         document.getElementById('membersSelect').selectedIndex = 0;
-        filterAndDisplayArtists(); // Affiche tous les artistes par défaut après la réinitialisation
+        filterAndDisplayArtists();
     });
 });
 
 function populateCityToArtistsMap(artists) {
     cityToArtistsMap = artists.reduce((map, artist) => {
         let locations = artist.locations;
-        // Si 'locations' n'est pas un tableau, mais une chaîne, convertissons-le en tableau
+
         if (typeof locations === 'string') {
             locations = [locations];
         }
@@ -177,7 +171,6 @@ function displayResults(artists) {
         resultsDiv.innerHTML += artistHtml;
 });
 
-        // Applique l'animation après que les éléments sont ajoutés au DOM
         requestAnimationFrame(() => {
             const artistElements = resultsDiv.querySelectorAll('.artist-result');
             artistElements.forEach(el => el.classList.add('show'));
@@ -193,7 +186,6 @@ function filterAndDisplayArtists() {
     const creationYearInput = document.getElementById('creationYearSelect').value;
     const membersInput = document.getElementById('membersSelect').value;
 
-    // Filtrez les artistes basé sur les inputs et les sélecteurs
     const filteredArtists = allArtists.filter(artist => {
         return (nameInput === "" || artist.name.toLowerCase().includes(nameInput)) &&
                (yearInput === "" || artist.firstAlbum.endsWith(yearInput)) &&
