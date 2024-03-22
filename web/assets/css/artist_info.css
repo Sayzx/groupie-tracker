@@ -226,48 +226,7 @@ ul li {
 }
 
 
-/* Style global de la section des commentaires */
-#comment-section {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
-#comment-section h2 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Style du formulaire de commentaire */
-#comment-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#comment-form input[type="text"] {
-    font-size: 16px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#comment-form button {
-    cursor: pointer;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-#comment-form button:hover {
-    background-color: #0056b3;
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
