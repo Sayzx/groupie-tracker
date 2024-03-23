@@ -9,14 +9,19 @@ import (
 
 // InitDB initializes and returns a connection to the database.
 func InitDB() *sql.DB {
-	// Initialization and connection to the MySQL database.
+	// Tentative d'initialisation et de connexion à la base de données MySQL.
 	db, err := sql.Open("mysql", "sayzx:MonNouveauMot2P@sse@tcp(pro.sayzx.fr:3306)/groupie")
 	if err != nil {
-		log.Fatalf("Error connecting to the database: %v", err)
+		// Enregistre l'erreur sans interrompre l'exécution du programme.
+		log.Printf("Erreur lors de la connexion à la base de données : %v", err)
+		return nil // Retourne nil pour indiquer l'échec de la connexion.
 	}
-	// Check that the database connection is successful.
+	// Vérifie que la connexion à la base de données est réussie.
 	if err := db.Ping(); err != nil {
-		log.Fatalf("Failed to connect to the database: %v", err)
+		// Enregistre l'erreur sans interrompre l'exécution du programme.
+		log.Printf("Échec de la connexion à la base de données : %v", err)
+		return nil // Retourne nil pour indiquer l'échec de la connexion.
 	}
+	log.Println("Connexion à la base de données réussie.")
 	return db
 }

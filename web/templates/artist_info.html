@@ -24,41 +24,38 @@
         </header>
     </div>
     <div class="info-container">
-
-            <div class="artist-info">
-                <input type="hidden" id="id" value="{{ .Artist.ID }}">
-                <img src="{{ .Artist.Image }}" alt="{{ .Artist.Name }}" class="artist-logo">
-                <div class="info">
-                    <h1>{{ .Artist.Name }}</h1>
-                    <p>Date de création : {{ .Artist.CreationDate }}</p>
-                    <p>Premier album : {{ .Artist.FirstAlbum }}</p>
-                    <div class="right-spotify">
-                    
-                    </div>
-                    <ul>
-                        <li>Liste des membres : ({{ len .Artist.Members }})
-                        {{range .Artist.Members}} <br>- {{ . }}
-                        {{end}}
-                        </li>
-                    </ul>
-                    <div class="relations">
-                        <h2>Concerts</h2>
-                        {{ if .Relations }}
-                        <ul>
-                            {{ range $index, $date := .Relations.Dates }}
-                            <li>Date: {{ $date }} - City: {{ index $.Relations.Cities $index }}</li>
-                            {{ end }}
-                        </ul>
-                        {{ else }}
-                        <p>Aucune information sur les concerts disponible.</p>
-                        {{ end }}
-                    
-                    </div>
-
-
+        <div class="artist-info">
+            <input type="hidden" id="id" value="{{ .Artist.ID }}">
+            <img src="{{ .Artist.Image }}" alt="{{ .Artist.Name }}" class="artist-logo">
+            <div class="info">
+                <h1>{{ .Artist.Name }}</h1>
+                <p>Date de création : {{ .Artist.CreationDate }}</p>
+                <p>Premier album : {{ .Artist.FirstAlbum }}</p>
+                <div class="right-spotify">
+                
                 </div>
-                <iframe src="https://open.spotify.com/embed/artist/{{.SpotifyID}}" width="280" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                <ul>
+                    <li>Liste des membres : ({{ len .Artist.Members }})
+                    {{range .Artist.Members}} <br>- {{ . }}
+                    {{end}}
+                    </li>
+                </ul>
+                <div class="relations">
+                    <h2>Concerts</h2>
+                    {{ if .Relations }}
+                    <ul>
+                        {{ range $index, $date := .Relations.Dates }}
+                        <li>Date: {{ $date }} - City: {{ index $.Relations.Cities $index }}</li>
+                        {{ end }}
+                    </ul>
+                    {{ else }}
+                    <p>Aucune information sur les concerts disponible.</p>
+                    {{ end }}
+                
+                </div>
             </div>
+            <iframe src="https://open.spotify.com/embed/artist/{{.SpotifyID}}" width="280" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
         <div id="map" class="artist-map"></div>
         <div id="comment-section">
             <h2>Commentaires</h2>
@@ -68,17 +65,15 @@
                 {{if .DiscordAvatar}}
                 <img src="{{.DiscordAvatar}}" alt="Avatar Discord" class="discord-avatar">
                 <form id="comment-form" action="/comment" method="post">
-                        <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>
-                        <button type="submit">Publier</button>
-                    </form>
+                    <input type="text" id="comment" name="comment" placeholder="Votre commentaire" required>
+                    <button type="submit">Publier</button>
+                </form>
                 {{else}}
-                    <img src="../assets/img/avatar-anonyme.png" alt="Avatar Anonyme" class="discord-avatar">
-                    <p>Pour publier un commentaire, veuillez vous <a href="/discord">connecter via Discord</a>.</p>
+                <img src="../assets/img/avatar-anonyme.png" alt="Avatar Anonyme" class="discord-avatar">
+                <p>Pour publier un commentaire, veuillez vous <a href="/discord">connecter via Discord</a>.</p>
                 {{end}}
             </div>
         </div>        
-        
-       
     </div>
 </body>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>      

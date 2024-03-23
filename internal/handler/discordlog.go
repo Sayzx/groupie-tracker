@@ -12,7 +12,7 @@ import (
 type User struct {
 	ID       string `json:"id"`
 	Username string `json:"username"`
-	Avatar   string `json:"avatar"`
+	Avatar   string `json:"avatar"` // Add avatar field
 }
 
 var (
