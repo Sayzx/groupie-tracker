@@ -26,6 +26,7 @@ func Run() {
 	http.HandleFunc("/artist_info", handler.ArtisteInfo)
 	http.HandleFunc("/comment", handler.SubmitCommentHandler(dbConn))
 	http.HandleFunc("/discord", handler.DiscordLoginHandler)
+	http.HandleFunc("/api/comments", handler.GetCommentsHandler(dbConn))
 
 	handler.Proxy()
 

@@ -2,63 +2,109 @@ package handler
 
 import (
 	"database/sql"
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 )
 
-// Assuming db is your *sql.DB connection established using initDB()
-// Make sure to import your database initialization package and use it here to get the DB connection
+type Comment struct {
+	DiscordName   string `json:"discordName"`
+	DiscordAvatar string `json:"discordAvatar"`
+	CommentText   string `json:"commentText"`
+}
 
 func SubmitCommentHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if db == nil {
-			log.Println("Database connection is nil, redirecting to /")
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-			return
-		}
+		// Vérifier que la méthode de la requête est POST
 		if r.Method != http.MethodPost {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
 
-		// Extrait les valeurs du formulaire
+		// Parser le formulaire pour accéder aux données soumises
+		if err := r.ParseForm(); err != nil {
+			log.Printf("Error parsing form: %v", err)
+			http.Error(w, "Error parsing form", http.StatusBadRequest)
+			return
+		}
+
+		// Extraire les données du formulaire
 		discordName := r.FormValue("discordName")
 		discordAvatar := r.FormValue("discordAvatar")
 		comment := r.FormValue("comment")
-		id := r.FormValue("id")
+		idStr := r.FormValue("id")
 
-		// Vérifie si les valeurs sont vides
-		if discordName == "" || discordAvatar == "" {
-			// Gérer le cas où les valeurs sont manquantes
-			log.Println("Les valeurs de l'avatar ou du nom de l'artiste sont manquantes")
-		} else {
-			// Utiliser les valeurs récupérées
-			log.Printf("Nom de l'artiste : %s, Avatar : %s\n", discordName, discordAvatar)
+		// Afficher les valeurs reçues pour débogage
+		log.Println("Received form data:", discordName, discordAvatar, comment, idStr)
+
+		// Convertir l'ID de l'artiste en entier
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			log.Printf("Invalid artist ID: %s, error: %v", idStr, err)
+			http.Error(w, "Invalid artist ID", http.StatusBadRequest)
+			return
 		}
 
-		// Debug print
-		log.Printf("Comment: %s\n", comment)
-		log.Printf("Discord Name: %s\n", discordName)
-		log.Printf("Discord Avatar: %s\n", discordAvatar)
-		log.Printf("Artist ID: %s\n", id)
-
-		// Prepare SQL statement
-		log.Println("Preparing SQL statement...")
+		// Préparer l'instruction SQL pour insérer le commentaire
 		stmt, err := db.Prepare("INSERT INTO comments (discord_name, discord_avatar, comment, artist_id) VALUES (?, ?, ?, ?)")
 		if err != nil {
-			log.Fatalf("Error preparing SQL statement: %v\n", err)
+			log.Printf("Error preparing SQL statement: %v", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
 		}
 		defer stmt.Close()
 
-		// Execute SQL statement
-		log.Println("Executing SQL statement...")
+		// Exécuter l'instruction SQL
 		_, err = stmt.Exec(discordName, discordAvatar, comment, id)
 		if err != nil {
-			log.Fatalf("Error executing SQL statement: %v\n", err)
+			log.Printf("Error executing SQL statement: %v", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
 		}
 
-		// Redirect after successful comment submission
+		// Redirection de l'utilisateur après la soumission réussie
 		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
+}
+
+func GetCommentsHandler(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// Récupération de l'artistID depuis l'URL
+		artistID := r.URL.Query().Get("id")
+		fmt.Printf("Artist ID: %s\n", artistID) // Affiche l'ID pour déboguer
+
+		// Préparation de la requête SQL
+		query := "SELECT discord_name, discord_avatar, comment FROM comments WHERE artist_id = ?"
+		rows, err := db.Query(query, artistID)
+		if err != nil {
+			log.Printf("Erreur lors de la requête SQL: %v", err)
+			http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
+			return
+		}
+		defer rows.Close()
+
+		var comments []Comment
+		for rows.Next() {
+			var c Comment
+			if err := rows.Scan(&c.DiscordName, &c.DiscordAvatar, &c.CommentText); err != nil {
+				log.Printf("Erreur lors de la récupération d'un commentaire: %v", err)
+				continue // Tentez de lire le commentaire suivant en cas d'erreur
+			}
+			comments = append(comments, c)
+		}
+
+		if err := rows.Err(); err != nil {
+			log.Printf("Erreur rencontrée lors du parcours des lignes: %v", err)
+			http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(comments); err != nil {
+			log.Printf("Erreur lors de l'encodage des commentaires en JSON: %v", err)
+			http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
+		}
 	}
 }
