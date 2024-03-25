@@ -1,3 +1,6 @@
+
+
+![App](https://media.discordapp.net/attachments/1012749489402023956/1221826582797226154/Sans_titre-3.png?ex=6613fdad&is=660188ad&hm=6360f9c6dafbeb80b4772fe8c398c8ac044af0770935e3eeda58e6cbcb6400e0&=&format=webp&quality=lossless&width=1440&height=240)
 # Groupie Tracker Project Overview
 
 Groupie Tracker was a 1.5-month project challenging us to leverage multiple APIs and tackle various request issues using JavaScript. We explored SQL through additional features and learned to handle APIs with Go.
