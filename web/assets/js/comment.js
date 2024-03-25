@@ -31,3 +31,19 @@
                     displayComments(comments);
                 })
                 .catch(error => console.error('Erreur:', error));
+
+// Requête à l'API pour obtenir les commentaires pour un artiste spécifique
+function fetchCommentsForArtist() {
+    const commentSection = document.getElementById('comment-section');
+    const artistID = commentSection.getAttribute('data-artist-id');
+
+    fetch(`/api/comments?id=${artistID}`) // Utilisez l'ID dans la requête
+        .then(response => response.json())
+        .then(comments => {
+            displayComments(comments);
+        })
+        .catch(error => console.error('Erreur:', error));
+}
+
+// Assurez-vous que cette fonction est appelée lorsque la page est chargée
+document.addEventListener('DOMContentLoaded', fetchCommentsForArtist);
