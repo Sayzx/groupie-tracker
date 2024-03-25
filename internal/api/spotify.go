@@ -54,6 +54,7 @@ func SearchArtist(artistName, accessToken string) (SpotifyArtist, error) {
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
+
 	if err != nil {
 		return artist, err
 	}

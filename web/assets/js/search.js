@@ -1,6 +1,5 @@
 let allArtists = [];
 let debounceTimeout;
-
 let cityToArtistsMap = {};
 
 function searchArtist() {

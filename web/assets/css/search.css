@@ -106,6 +106,7 @@ nav .nav-link {
 nav .nav-link:hover {
     color: #1DB954;
 }
+
 .container {
     background-color: #333;
     height: 100%;
@@ -134,7 +135,6 @@ h2 {
 h2:hover {
     text-decoration: underline;
 }
-
 
 form {
     margin-bottom: 20px;

@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-
     // Ici je fait un call sur cette url pour récupérer les coordonnées des villes
     fetch('https://groupie.sayzx.fr/api/sayzx.json')
     .then(response => response.json())

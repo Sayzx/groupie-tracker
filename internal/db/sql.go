@@ -16,6 +16,7 @@ func InitDB() *sql.DB {
 		log.Printf("Erreur lors de la connexion à la base de données : %v", err)
 		return nil // Retourne nil pour indiquer l'échec de la connexion.
 	}
+
 	// Vérifie que la connexion à la base de données est réussie.
 	if err := db.Ping(); err != nil {
 		// Enregistre l'erreur sans interrompre l'exécution du programme.

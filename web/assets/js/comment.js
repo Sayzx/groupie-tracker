@@ -33,7 +33,6 @@ function displayComments(comments) {
     });
 }
 
-
 // Requête à l'API pour obtenir les commentaires
 fetch('/api/comments')
     .then(response => response.json())
@@ -41,8 +40,6 @@ fetch('/api/comments')
         displayComments(comments);
     })
     .catch(error => console.error('Erreur:', error));
-
-
 
 
 // Requête à l'API pour obtenir les commentaires pour un artiste spécifique
