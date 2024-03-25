@@ -89,7 +89,10 @@ Pour utiliser votre propre serveur SQL avec Groupie Tracker ( Ce n'est pas oblig
 
 👏 Bonne découverte  ici : `http://localhost:8080`
 
+### Authors : 
 
+- [@sayzx](https://www.github.com/sayzx) [![wakatime](https://wakatime.com/badge/user/018d13a0-dea5-424f-9eef-3afdc71ebf87/project/018dacdc-1ebd-4c10-a5d7-2c183e8952c0.svg)](https://wakatime.com/badge/user/018d13a0-dea5-424f-9eef-3afdc71ebf87/project/018dacdc-1ebd-4c10-a5d7-2c183e8952c0)
+- [@nicolasgouy](https://www.github.com/gonicolas12)
 
 
 ## Demo
