@@ -31,6 +31,19 @@ var (
 )
 
 func DiscordLoginHandler(w http.ResponseWriter, r *http.Request) {
+	// Stocker l'URL de référence dans un cookie
+	referrer := r.Header.Get("Referer")
+	if referrer == "" {
+		referrer = "/" // ou toute URL par défaut de votre choix
+	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name:  "referrerURL",
+		Value: referrer,
+		Path:  "/",
+		// Vous pouvez ajuster les autres paramètres du cookie selon vos besoins
+	})
+
 	url := discordOauthConfig.AuthCodeURL("state", oauth2.AccessTypeOnline)
 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 }
@@ -41,12 +54,14 @@ func GetUserDetails(accessToken string) (*User, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	req.Header.Set("Authorization", "Bearer "+accessToken)
 
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 
 	var user User

@@ -16,6 +16,7 @@ type GalleryData struct {
 func generateSessionID() string {
 	b := make([]byte, 32)
 	_, err := rand.Read(b)
+
 	if err != nil {
 		panic(err)
 	}
@@ -30,17 +31,28 @@ func UnifiedGalleryHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Cannot exchange authorization code for access token", http.StatusBadRequest)
 			return
 		}
+
 		user, err := GetUserDetails(token.AccessToken)
 		if err != nil {
 			http.Error(w, "Cannot retrieve user details", http.StatusInternalServerError)
 			return
 		}
+
 		sessionID := generateSessionID()
 		mu.Lock()
 		connectedUsers[sessionID] = *user
 		mu.Unlock()
 		http.SetCookie(w, &http.Cookie{Name: "userSessionID", Value: sessionID, HttpOnly: true})
-		http.Redirect(w, r, "/gallery", http.StatusSeeOther)
+
+		// Récupérer l'URL de référence depuis le cookie
+		referrerCookie, err := r.Cookie("referrerURL")
+		if err != nil {
+			// Cookie non trouvé, utiliser un fallback
+			http.Redirect(w, r, "/gallery", http.StatusSeeOther)
+			return
+		}
+		// Rediriger vers l'URL de référence
+		http.Redirect(w, r, referrerCookie.Value, http.StatusSeeOther)
 		return
 	}
 

@@ -11,7 +11,7 @@ function displayComments(comments) {
         const avatar = document.createElement('img');
         avatar.src = comment.discordAvatar ? comment.discordAvatar : '../assets/img/avatar-anonyme.png';
         avatar.alt = 'Avatar Discord';
-        avatar.classList.add('discord-avatar');
+        avatar.classList.add('discord-avatar-comment');
         
         const text = document.createElement('p');
         text.innerText = comment.commentText;

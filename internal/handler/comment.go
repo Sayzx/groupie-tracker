@@ -66,8 +66,8 @@ func GetCommentsHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		artistID := r.URL.Query().Get("id")
-
 		query := "SELECT discord_name, discord_avatar, comment FROM comments WHERE artist_id = ?"
+
 		rows, err := db.Query(query, artistID)
 		if err != nil {
 			log.Printf("Erreur lors de la requête SQL: %v", err)
