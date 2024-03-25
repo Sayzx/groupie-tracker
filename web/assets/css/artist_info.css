@@ -37,7 +37,7 @@ nav .nav-link {
     color: white;
     font-family: 'Satoshi-Bold';
     text-decoration: none;
-    margin: 0 1rem;
+    margin: 1rem;
     font-size: 1.2rem;
     transition: color 0.3s ease;
 }
@@ -244,7 +244,7 @@ ul li {
 
 #comment-section p {
     font-family: 'Satoshi-Bold';
-    color: #333;
+    color: #333 !important;
     margin-bottom: 10px;
 }
 

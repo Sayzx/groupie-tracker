@@ -20,7 +20,6 @@ function applyLightModeStyles() {
     document.querySelectorAll('.card-container').forEach(el => el.style.backgroundColor = '#fff');
     document.querySelectorAll('.artist-card').forEach(el => el.style.backgroundColor = '#fff');
     document.querySelectorAll('p').forEach(el => el.style.color = '#555');
-    document.querySelectorAll('comment-section p').forEach(el => el.style.color = '#333');
     // Ajout du style pour .rounded-input1 de lightmode3.js
     document.querySelectorAll('.rounded-input1').forEach(el => el.style.backgroundColor = '#fff');
 }
@@ -31,7 +30,6 @@ function applyDarkModeStyles() {
     document.querySelectorAll('.card-container').forEach(el => el.style.backgroundColor = '#333');
     document.querySelectorAll('.artist-card').forEach(el => el.style.backgroundColor = '#1f1f1f');
     document.querySelectorAll('p').forEach(el => el.style.color = '#ffffff');
-    document.querySelectorAll('comment-section p').forEach(el => el.style.color = '#333');
     // Ajout du style pour .rounded-input1 de lightmode3.js
     document.querySelectorAll('.rounded-input1').forEach(el => el.style.backgroundColor = '#444');
 }
