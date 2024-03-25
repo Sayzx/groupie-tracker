@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"sync"
 
@@ -12,7 +11,7 @@ import (
 type User struct {
 	ID       string `json:"id"`
 	Username string `json:"username"`
-	Avatar   string `json:"avatar"` // Add avatar field
+	Avatar   string `json:"avatar"`
 }
 
 var (
@@ -32,14 +31,10 @@ var (
 )
 
 func DiscordLoginHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Début de DiscordLoginHandler")
 	url := discordOauthConfig.AuthCodeURL("state", oauth2.AccessTypeOnline)
-	fmt.Printf("URL d'autorisation OAuth2 générée : %s\n", url)
 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
-	fmt.Println("Redirection effectuée")
 }
 
-// GetUserDetails récupère les détails de l'utilisateur Discord à partir du token d'accès
 func GetUserDetails(accessToken string) (*User, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "https://discord.com/api/users/@me", nil)

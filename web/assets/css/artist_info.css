@@ -248,6 +248,37 @@ ul li {
     margin-bottom: 10px;
 }
 
+.comment {
+    display: flex;
+    gap: 10px; 
+    align-items: center;
+    justify-content: start; 
+    margin-bottom: 20px; 
+    padding: 10px;
+    border-radius: 8px; 
+    background-color: #f9f9f9; 
+}
+
+.comment-content {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacement entre l'avatar et le texte */
+    flex-grow: 1; /* Permet au contenu de remplir l'espace disponible */
+}
+
+.comment-text {
+    flex-grow: 1; /* Permet au texte de prendre l'espace disponible */
+    margin: 0; /* Réinitialise les marges par défaut du paragraphe */
+}
+
+.comment-author {
+    margin-left: auto; /* Pousse l'auteur à droite */
+    padding-right: 10px; /* Un peu d'espace à droite */
+    font-weight: bold; /* Met en évidence le nom de l'auteur */
+    white-space: nowrap; /* Empêche le nom de l'auteur de passer à la ligne */
+}
+
+
 .discord-info {
     display: flex;
     align-items: center;
