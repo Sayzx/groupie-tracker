@@ -4,10 +4,10 @@ import (
 	"database/sql"
 	"log"
 
-	_ "github.com/go-sql-driver/mysql" // Ensure you import the MySQL driver
+	_ "github.com/go-sql-driver/mysql"
 )
 
-// InitDB initializes and returns a connection to the database.
+// InitDB initialise et retourne une connexion à la base de données MySQL.
 func InitDB() *sql.DB {
 	// Tentative d'initialisation et de connexion à la base de données MySQL.
 	db, err := sql.Open("mysql", "sayzx:MonNouveauMot2P@sse@tcp(pro.sayzx.fr:3306)/groupie")

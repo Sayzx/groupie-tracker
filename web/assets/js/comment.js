@@ -55,5 +55,4 @@ function fetchCommentsForArtist() {
         .catch(error => console.error('Erreur:', error));
 }
 
-// Assurez-vous que cette fonction est appelée lorsque la page est chargée
 document.addEventListener('DOMContentLoaded', fetchCommentsForArtist);
