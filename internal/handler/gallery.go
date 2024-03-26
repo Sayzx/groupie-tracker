@@ -51,7 +51,6 @@ func UnifiedGalleryHandler(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/gallery", http.StatusSeeOther)
 			return
 		}
-		// Rediriger vers l'URL de référence
 		http.Redirect(w, r, referrerCookie.Value, http.StatusSeeOther)
 		return
 	}
