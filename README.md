@@ -45,6 +45,7 @@ To get the Groupie Tracker project up and running, ensure you have a Go environm
 ### Installation and Execution
 
 1. **Clone the repository** with the following command:
+
    ```bash
    git clone https://github.com/Sayzx/groupie-tracker/
    cd groupie-tracker
