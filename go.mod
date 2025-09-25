@@ -2,7 +2,7 @@ module main
 
 go 1.21.3
 
-require golang.org/x/oauth2 v0.17.0
+require golang.org/x/oauth2 v0.31.0
 
 require (
 	github.com/golang/protobuf v1.5.3 // indirect
